@@ -46,13 +46,13 @@ function Index() {
   return (
     <SiteLayout>
       {/* HERO */}
-      <section className="hero-glow mx-auto max-w-6xl overflow-hidden px-4 py-14 sm:px-6 md:py-16">
-        <div className="relative grid items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <span className="eyebrow inline-flex items-center gap-2 rounded-full bg-cream/80 px-3 py-1 font-medium text-clay ring-1 ring-line">
+      <section className="hero-glow mx-auto max-w-6xl overflow-hidden px-4 pb-14 pt-12 sm:px-6 md:pb-20 md:pt-16">
+        <div className="relative grid items-center gap-10 min-[740px]:grid-cols-12 lg:gap-14">
+          <div className="min-[740px]:col-span-7">
+            <span className="eyebrow inline-flex items-center gap-2 rounded-lg bg-white/55 px-3 py-1.5 font-medium text-coral ring-1 ring-white/75 backdrop-blur-md">
               Mentoria de carreira · 1 a 1
             </span>
-            <h1 className="mt-6 max-w-[20ch] font-display text-4xl font-semibold leading-[1.05] tracking-tight text-balance md:text-5xl">
+            <h1 className="mt-6 max-w-[18ch] font-display text-4xl font-semibold leading-[1.04] tracking-[-0.025em] text-balance sm:text-5xl lg:text-6xl">
               Acompanhamento profissional que respeita o seu tempo e o seu ritmo.
             </h1>
             <p className="mt-6 max-w-[46ch] text-base leading-relaxed text-mist text-pretty md:text-lg">
@@ -62,19 +62,19 @@ function Index() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/contato"
-                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground ring-1 ring-clay/40 transition-colors hover:bg-primary/90"
+                className="coral-button rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5"
               >
                 Quero fazer mentoria
               </Link>
               <Link
                 to="/mentoria"
-                className="rounded-full bg-cream/70 px-6 py-3 text-sm font-semibold text-ink ring-1 ring-line transition-colors hover:bg-cream"
+                className="glass-card rounded-xl px-6 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-white/80"
               >
                 Conhecer como funciona
               </Link>
             </div>
           </div>
-          <div className="lg:col-span-5">
+          <div className="min-[740px]:col-span-5">
             <CareerCompassVisual />
           </div>
         </div>
@@ -90,8 +90,8 @@ function Index() {
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AREAS.map((a) => (
-            <div key={a.title} className="rounded-2xl bg-cream/70 p-5 ring-1 ring-line backdrop-blur-sm">
-              <span className="text-lg font-semibold">{a.title}</span>
+            <div key={a.title} className="glass-card group rounded-2xl p-5 transition-transform hover:-translate-y-1">
+              <span className="font-display text-lg font-semibold text-navy">{a.title}</span>
               <p className="mt-2 text-sm leading-relaxed text-mist text-pretty">{a.text}</p>
             </div>
           ))}
@@ -100,15 +100,15 @@ function Index() {
 
       {/* HOW IT WORKS */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="surface rounded-3xl px-8 py-10 md:px-12">
-          <span className="eyebrow text-clay">Como funciona a mentoria</span>
+        <div className="surface rounded-[1.75rem] px-7 py-9 sm:px-9 md:px-12 md:py-11">
+          <span className="eyebrow text-coral">Como funciona a mentoria</span>
           <p className="mt-4 max-w-[48ch] font-display text-2xl font-medium leading-snug tracking-tight text-balance md:text-3xl">
             Sessões de 30 a 60 minutos, ajustadas à necessidade de cada encontro.
           </p>
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             {STEPS.map((s) => (
               <div key={s.n} className="flex gap-4">
-                <span className="font-display text-2xl font-semibold text-terracotta">{s.n}</span>
+                <span className="font-display text-2xl font-semibold text-coral">{s.n}</span>
                 <div>
                   <span className="text-sm font-semibold">{s.title}</span>
                   <p className="mt-1 text-sm leading-relaxed text-mist text-pretty">{s.text}</p>
@@ -123,13 +123,13 @@ function Index() {
       <section className="mx-auto max-w-6xl px-4 py-12 pb-20 sm:px-6">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
-            <span className="eyebrow text-clay">Benefícios do acompanhamento</span>
+            <span className="eyebrow text-coral">Benefícios do acompanhamento</span>
             <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-balance md:text-3xl">
               Clareza, direção e alguém ao seu lado em cada etapa.
             </h2>
             <Link
               to="/mentoria"
-              className="mt-6 inline-flex rounded-full bg-cream/70 px-6 py-3 text-sm font-semibold text-ink ring-1 ring-line transition-colors hover:bg-cream"
+              className="glass-card mt-6 inline-flex rounded-xl px-6 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-white/80"
             >
               Conhecer a mentoria
             </Link>
@@ -138,9 +138,9 @@ function Index() {
             {BENEFITS.map((b) => (
               <li
                 key={b}
-                className="flex items-start gap-3 rounded-2xl bg-cream/70 p-5 text-sm ring-1 ring-line"
+                className="glass-card flex items-start gap-3 rounded-2xl p-5 text-sm"
               >
-                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-sage/15 text-[10px] font-bold text-sage">
+                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-coral/12 text-[10px] font-bold text-coral">
                   ✓
                 </span>
                 {b}

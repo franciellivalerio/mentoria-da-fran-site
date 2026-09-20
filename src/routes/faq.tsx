@@ -59,7 +59,7 @@ function FaqPage() {
             <AccordionItem
               key={item.q}
               value={`item-${i}`}
-              className="rounded-2xl bg-cream/70 px-6 ring-1 ring-line last:border-b"
+              className="glass-card rounded-2xl px-6 last:border-b"
             >
               <AccordionTrigger className="py-5 text-left text-base font-semibold hover:no-underline">
                 {item.q}

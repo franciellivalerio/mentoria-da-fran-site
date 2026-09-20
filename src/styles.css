@@ -5,9 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system — "Warm Clay Editorial"
- * Sand background, cream surfaces, terracotta accent, sage for success,
- * Fraunces for display type, Karla for body.
+ * Design system — "Navy Coral Glass"
+ * Cool ivory background, navy typography, restrained coral accents and
+ * translucent glass surfaces. Fraunces adds editorial character while Karla
+ * keeps longer passages crisp and professional.
  */
 
 @theme inline {
@@ -62,26 +63,30 @@
   --color-sage: var(--sage);
   --color-line: var(--line);
   --color-amber: var(--amber);
+  --color-navy: var(--navy);
+  --color-coral: var(--coral);
 
   --font-display: "Fraunces", Georgia, serif;
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-soft: 0 1px 2px oklch(0.24 0.012 50 / 4%), 0 12px 32px -16px oklch(0.24 0.012 50 / 18%);
-  --shadow-card: 0 1px 0 oklch(1 0 0 / 60%) inset, 0 8px 24px -18px oklch(0.24 0.012 50 / 25%);
+  --shadow-soft: 0 1px 0 oklch(1 0 0 / 72%) inset, 0 18px 48px -28px oklch(0.24 0.06 250 / 28%);
+  --shadow-card: 0 1px 0 oklch(1 0 0 / 78%) inset, 0 24px 64px -36px oklch(0.22 0.07 250 / 30%);
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.875rem;
 
-  --sand: oklch(0.945 0.02 85);
-  --cream: oklch(0.977 0.011 85);
-  --terracotta: oklch(0.58 0.14 40);
-  --clay: oklch(0.47 0.115 38);
-  --ink: oklch(0.24 0.012 50);
-  --mist: oklch(0.55 0.02 60);
-  --sage: oklch(0.61 0.045 145);
-  --line: oklch(0.885 0.03 80);
-  --amber: oklch(0.72 0.13 75);
+  --navy: oklch(0.27 0.075 252);
+  --coral: oklch(0.69 0.16 29);
+  --sand: oklch(0.97 0.008 245);
+  --cream: oklch(0.995 0.003 245);
+  --terracotta: var(--coral);
+  --clay: oklch(0.58 0.17 28);
+  --ink: var(--navy);
+  --mist: oklch(0.5 0.04 250);
+  --sage: oklch(0.48 0.08 225);
+  --line: oklch(0.87 0.025 245);
+  --amber: oklch(0.75 0.12 60);
 
   --background: var(--sand);
   --foreground: var(--ink);
@@ -91,11 +96,11 @@
   --popover-foreground: var(--ink);
   --primary: var(--terracotta);
   --primary-foreground: var(--cream);
-  --secondary: oklch(0.925 0.022 82);
+  --secondary: oklch(0.94 0.018 245);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.925 0.022 82);
+  --muted: oklch(0.94 0.018 245);
   --muted-foreground: var(--mist);
-  --accent: oklch(0.58 0.14 40 / 10%);
+  --accent: oklch(0.69 0.16 29 / 12%);
   --accent-foreground: var(--clay);
   --destructive: oklch(0.55 0.19 27);
   --destructive-foreground: var(--cream);
@@ -107,11 +112,11 @@
   --chart-3: var(--amber);
   --chart-4: var(--clay);
   --chart-5: var(--mist);
-  --sidebar: oklch(0.955 0.018 85);
+  --sidebar: oklch(0.97 0.008 245);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--terracotta);
   --sidebar-primary-foreground: var(--cream);
-  --sidebar-accent: oklch(0.58 0.14 40 / 10%);
+  --sidebar-accent: oklch(0.69 0.16 29 / 12%);
   --sidebar-accent-foreground: var(--clay);
   --sidebar-border: var(--line);
   --sidebar-ring: var(--terracotta);
@@ -124,10 +129,16 @@
 
   html {
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--color-background);
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 8% 8%, oklch(0.69 0.16 29 / 9%), transparent 30rem),
+      radial-gradient(circle at 88% 20%, oklch(0.53 0.1 244 / 11%), transparent 34rem),
+      linear-gradient(145deg, oklch(0.985 0.006 245), var(--color-background));
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
@@ -137,7 +148,12 @@
   }
 }
 
-/* Soft blurred glow blobs behind the hero */
+::selection {
+  background: oklch(0.69 0.16 29 / 24%);
+  color: var(--navy);
+}
+
+/* Soft blurred glow fields behind key sections. */
 @utility hero-glow {
   position: relative;
   &::before,
@@ -145,7 +161,7 @@
     content: "";
     position: absolute;
     border-radius: 9999px;
-    filter: blur(72px);
+    filter: blur(88px);
     pointer-events: none;
   }
   &::before {
@@ -153,22 +169,46 @@
     left: -80px;
     width: 420px;
     height: 420px;
-    background: radial-gradient(circle, oklch(0.58 0.14 40 / 22%), transparent 70%);
+    background: radial-gradient(circle, oklch(0.69 0.16 29 / 14%), transparent 70%);
   }
   &::after {
     bottom: -160px;
     right: -60px;
     width: 480px;
     height: 480px;
-    background: radial-gradient(circle, oklch(0.61 0.045 145 / 26%), transparent 70%);
+    background: radial-gradient(circle, oklch(0.46 0.09 245 / 15%), transparent 70%);
   }
 }
 
-/* Frosted cream surface */
+/* Liquid-glass surfaces with a crisp highlight and a restrained navy shadow. */
 @utility surface {
-  background-color: color-mix(in oklab, var(--cream) 70%, transparent);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 0 1px oklch(0 0 0 / 5%);
+  border: 1px solid oklch(1 0 0 / 68%);
+  background:
+    linear-gradient(135deg, oklch(1 0 0 / 72%), oklch(0.95 0.015 245 / 48%));
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 84%) inset,
+    0 24px 64px -40px oklch(0.24 0.08 250 / 38%);
+}
+
+@utility glass-card {
+  border: 1px solid oklch(1 0 0 / 72%);
+  background:
+    linear-gradient(145deg, oklch(1 0 0 / 70%), oklch(0.96 0.014 245 / 46%));
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 82%) inset,
+    0 18px 48px -38px oklch(0.24 0.08 250 / 32%);
+}
+
+@utility coral-button {
+  background: linear-gradient(135deg, oklch(0.73 0.15 29), var(--coral));
+  box-shadow: 0 12px 30px -18px oklch(0.58 0.17 28 / 72%);
+  &:hover {
+    background: linear-gradient(135deg, oklch(0.7 0.17 29), oklch(0.64 0.18 27));
+  }
 }
 
 @utility eyebrow {

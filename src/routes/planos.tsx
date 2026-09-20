@@ -67,8 +67,8 @@ function PlanosPage() {
               key={p.name}
               className={
                 p.highlighted
-                  ? "relative rounded-3xl bg-cream p-7 ring-2 ring-terracotta/60 shadow-soft"
-                  : "rounded-3xl bg-cream/70 p-7 ring-1 ring-line"
+                  ? "surface relative rounded-2xl p-7 ring-2 ring-coral/45 shadow-soft"
+                  : "glass-card rounded-2xl p-7"
               }
             >
               {p.highlighted && (
@@ -79,12 +79,12 @@ function PlanosPage() {
               <h2 className="font-display text-xl font-semibold">{p.name}</h2>
               <p className="mt-1 text-sm text-mist">{p.tagline}</p>
               <div className="mt-6 font-display text-3xl font-semibold">
-                {p.price ?? <span className="text-xl text-clay">Sob consulta</span>}
+                {p.price ?? <span className="text-xl text-coral">Sob consulta</span>}
               </div>
               <ul className="mt-6 space-y-2.5 border-t border-line pt-6 text-sm">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <span className="text-sage">✓</span>
+                    <span className="text-coral">✓</span>
                     {f}
                   </li>
                 ))}
@@ -93,8 +93,8 @@ function PlanosPage() {
                 to="/contato"
                 className={
                   p.highlighted
-                    ? "mt-8 block rounded-full bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-                    : "mt-8 block rounded-full bg-sand px-5 py-3 text-center text-sm font-semibold text-ink ring-1 ring-line hover:bg-cream"
+                    ? "coral-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
+                    : "mt-8 block rounded-xl bg-white/55 px-5 py-3 text-center text-sm font-semibold text-ink ring-1 ring-white/80 hover:bg-white/80"
                 }
               >
                 Falar com a Fran

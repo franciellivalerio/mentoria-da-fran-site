@@ -54,8 +54,8 @@ function MentoriaPage() {
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="grid gap-4 md:grid-cols-3">
           {PHASES.map((p) => (
-            <div key={p.n} className="rounded-3xl bg-cream/70 p-7 ring-1 ring-line">
-              <span className="font-display text-3xl font-semibold text-terracotta">{p.n}</span>
+            <div key={p.n} className="glass-card rounded-2xl p-7">
+              <span className="font-display text-3xl font-semibold text-coral">{p.n}</span>
               <h2 className="mt-4 font-display text-xl font-semibold">{p.title}</h2>
               <p className="mt-3 text-sm leading-relaxed text-mist text-pretty">{p.text}</p>
             </div>
@@ -64,8 +64,8 @@ function MentoriaPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div className="surface rounded-3xl px-8 py-10 md:px-12">
-          <span className="eyebrow text-clay">Como funciona na prática</span>
+        <div className="surface rounded-[1.75rem] px-8 py-10 md:px-12">
+          <span className="eyebrow text-coral">Como funciona na prática</span>
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
             {FORMAT.map((f) => (
               <div key={f.label} className="border-t border-line pt-4">
