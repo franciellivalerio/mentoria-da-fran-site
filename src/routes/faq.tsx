@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CtaBand, PageIntro, SiteLayout } from "@/components/site/SiteLayout";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const TITLE = "Perguntas frequentes — Mentoria da Fran";
 const DESC =
@@ -64,7 +69,7 @@ function FaqPage() {
               <AccordionTrigger className="py-5 text-left text-base font-semibold hover:no-underline">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="pb-5 text-sm leading-relaxed text-mist">
+              <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
                 {item.a}
               </AccordionContent>
             </AccordionItem>

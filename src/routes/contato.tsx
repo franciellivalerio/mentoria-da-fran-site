@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MessageCircle } from "lucide-react";
+import { CircleAlert, MessageCircle } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { PageIntro, SiteLayout } from "@/components/site/SiteLayout";
 import { Input } from "@/components/ui/input";
@@ -18,10 +19,47 @@ const INTERESTS = [
   "Entrevistas",
   "Processos seletivos",
   "Portfólio",
+  "PDI",
+  "Posicionamento nas redes",
   "Planejamento de carreira",
-  "Estudos",
+  "Trilha de estudos",
   "Transição de carreira",
 ] as const;
+
+const AVAILABLE_DAYS = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira"] as const;
+const AVAILABLE_TIMES = ["19h", "20h", "21h"] as const;
+
+const MESSAGE_MARKER = {
+  availableDays: "📅",
+  availableTimes: "🕒",
+  email: "✉️",
+  farewell: "🤎",
+  goal: "✨",
+  greeting: "🤎",
+  interest: "🎯",
+  linkedin: "🔗",
+  name: "👤",
+  profession: "💼",
+} as const;
+
+const INTEREST_EMOJI: Record<(typeof INTERESTS)[number], string> = {
+  Currículo: "📄",
+  LinkedIn: "🔗",
+  Entrevistas: "🎤",
+  "Processos seletivos": "🔎",
+  Portfólio: "🗂️",
+  PDI: "🎯",
+  "Posicionamento nas redes": "📱",
+  "Planejamento de carreira": "🧭",
+  "Trilha de estudos": "📚",
+  "Transição de carreira": "🔄",
+};
+
+const inputClassName = "h-11 rounded-xl border-coffee/20 bg-cream/70 px-4";
+const optionClassName =
+  "flex cursor-pointer items-center gap-3 rounded-xl border border-coffee/18 bg-cream/60 px-4 py-3 text-sm transition-colors hover:border-terracotta/40 hover:bg-sand/35 has-[:checked]:border-terracotta/55 has-[:checked]:bg-terracotta/10";
+const absenceOptionClassName =
+  "mt-2 inline-flex cursor-pointer items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-coffee";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -36,30 +74,80 @@ export const Route = createFileRoute("/contato")({
 });
 
 function whatsappUrl(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const encodedMessage = encodeURIComponent(message);
+  const { maxTouchPoints, userAgent } = window.navigator;
+  const isMobileDevice =
+    /Android|iPhone|iPad|iPod/i.test(userAgent) ||
+    (maxTouchPoints > 1 && /Macintosh/i.test(userAgent));
+
+  return isMobileDevice
+    ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
+    : `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodedMessage}`;
 }
 
 function ContatoPage() {
+  const [noProfession, setNoProfession] = useState(false);
+  const [noLinkedin, setNoLinkedin] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  function showRequiredWarning(
+    message = "Preencha todos os campos obrigatórios antes de continuar.",
+  ) {
+    setFormError(message);
+    toast.error(message, { id: "required-fields" });
+  }
+
+  function onInvalid(event: React.InvalidEvent<HTMLFormElement>) {
+    event.preventDefault();
+    showRequiredWarning();
+  }
+
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
-    const interest = String(data.get("interest") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
-    const text = [
-      "Olá, Fran! Conheci seu site e gostaria de saber mais sobre a mentoria.",
-      "",
-      `Nome: ${name}`,
-      `Principal interesse: ${interest}`,
-      `Meu momento: ${message}`,
-    ].join("\n");
+    const email = String(data.get("email") ?? "").trim();
+    const profession = String(data.get("profession") ?? "").trim();
+    const linkedin = String(data.get("linkedin") ?? "").trim();
+    const goal = String(data.get("goal") ?? "").trim();
+    const interests = data.getAll("interests").map(String);
+    const availableDays = data.getAll("availableDays").map(String);
+    const availableTimes = data.getAll("availableTimes").map(String);
 
+    if (!name || !email || (!noProfession && !profession) || (!noLinkedin && !linkedin)) {
+      showRequiredWarning();
+      event.currentTarget.reportValidity();
+      return;
+    }
+
+    if (interests.length === 0) {
+      showRequiredWarning("Selecione pelo menos um interesse antes de continuar.");
+      return;
+    }
+
+    if (availableDays.length === 0 || availableTimes.length === 0) {
+      showRequiredWarning("Selecione pelo menos um dia e um horário disponível.");
+      return;
+    }
+
+    const text = [
+      `Olá, Fran! ${MESSAGE_MARKER.greeting}`,
+      "Gostaria de conversar sobre a mentoria. Organizei minhas informações abaixo:",
+      `${MESSAGE_MARKER.name} *Nome*\n${name}`,
+      `${MESSAGE_MARKER.email} *E-mail*\n${email}`,
+      `${MESSAGE_MARKER.profession} *Profissão atual*\n${noProfession ? "Não possuo no momento" : profession}`,
+      `${MESSAGE_MARKER.linkedin} *LinkedIn*\n${noLinkedin ? "Não possuo" : linkedin}`,
+      `${MESSAGE_MARKER.interest} *Principais interesses*\n${interests.map((interest) => `${INTEREST_EMOJI[interest as (typeof INTERESTS)[number]]} ${interest}`).join("\n")}`,
+      `*Disponibilidade*\n${MESSAGE_MARKER.availableDays} Dias: ${availableDays.join(", ")}\n${MESSAGE_MARKER.availableTimes} Horários: ${availableTimes.join(", ")}`,
+      `${MESSAGE_MARKER.goal} *O que desejo alcançar com a mentoria*\n${goal || "Não informado"}`,
+      `Fico no aguardo para combinarmos os próximos passos. ${MESSAGE_MARKER.farewell}`,
+    ].join("\n\n");
+
+    setFormError(null);
     window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
     toast.success("WhatsApp aberto com a sua mensagem pronta.");
   }
-
-  const directMessage = "Olá, Fran! Conheci seu site e gostaria de saber mais sobre a mentoria.";
 
   return (
     <SiteLayout>
@@ -69,85 +157,194 @@ function ContatoPage() {
         description="Conte um pouco sobre o seu momento profissional. Ao continuar, abriremos o WhatsApp com a mensagem pronta para você revisar e enviar."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-8 pb-20 sm:px-6">
-        <div className="grid gap-6 lg:grid-cols-12">
-          <div className="surface rounded-[1.75rem] p-7 lg:col-span-7 md:p-9">
-            <form onSubmit={onSubmit} className="space-y-5">
+      <section className="mx-auto max-w-4xl px-4 py-8 pb-20 sm:px-6">
+        <div className="surface rounded-[1.75rem] p-6 sm:p-8 md:p-10">
+          <form
+            onSubmit={onSubmit}
+            onInvalid={onInvalid}
+            onChange={() => formError && setFormError(null)}
+            className="space-y-8"
+          >
+            <p className="text-sm text-muted-foreground">
+              Os campos marcados com <span className="font-semibold text-primary">*</span> são
+              obrigatórios.
+            </p>
+            <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="name">Nome</Label>
-                <Input id="name" name="name" required placeholder="Seu nome" className="h-11 rounded-xl border-white/80 bg-white/45 px-4" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="interest">Principal interesse</Label>
-                <select
-                  id="interest"
-                  name="interest"
-                  className="flex h-11 w-full rounded-xl border border-white/80 bg-white/45 px-4 py-1 text-sm shadow-xs outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
-                >
-                  {INTERESTS.map((interest) => (
-                    <option key={interest}>{interest}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Conte seu momento</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={5}
+                <Label htmlFor="name">
+                  Nome <span className="text-primary">*</span>
+                </Label>
+                <Input
+                  id="name"
+                  name="name"
                   required
-                  placeholder="Onde você está hoje e onde quer chegar?"
-                  className="rounded-xl border-white/80 bg-white/45 px-4 py-3"
+                  autoComplete="name"
+                  placeholder="Seu nome"
+                  className={inputClassName}
                 />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">
+                  E-mail <span className="text-primary">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="voce@exemplo.com"
+                  className={inputClassName}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="profession">
+                  Profissão atual <span className="text-primary">*</span>
+                </Label>
+                <Input
+                  id="profession"
+                  name="profession"
+                  required={!noProfession}
+                  disabled={noProfession}
+                  placeholder="Conte qual é a sua profissão hoje"
+                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-sand/40 disabled:opacity-60`}
+                />
+                <label className={absenceOptionClassName}>
+                  <input
+                    type="checkbox"
+                    checked={noProfession}
+                    onChange={(event) => setNoProfession(event.target.checked)}
+                    className="size-4 accent-primary"
+                  />
+                  Não possuo profissão no momento
+                </label>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="linkedin">
+                  LinkedIn <span className="text-primary">*</span>
+                </Label>
+                <Input
+                  id="linkedin"
+                  name="linkedin"
+                  type="url"
+                  inputMode="url"
+                  required={!noLinkedin}
+                  disabled={noLinkedin}
+                  placeholder="https://linkedin.com/in/seu-perfil"
+                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-sand/40 disabled:opacity-60`}
+                />
+                <label className={absenceOptionClassName}>
+                  <input
+                    type="checkbox"
+                    checked={noLinkedin}
+                    onChange={(event) => setNoLinkedin(event.target.checked)}
+                    className="size-4 accent-primary"
+                  />
+                  Não possuo LinkedIn
+                </label>
+              </div>
+            </div>
+
+            <fieldset aria-required="true">
+              <legend className="text-sm font-medium text-espresso">
+                Principais interesses <span className="text-primary">*</span>
+              </legend>
+              <p className="mt-1 text-sm text-muted-foreground">Você pode marcar mais de um.</p>
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {INTERESTS.map((interest) => (
+                  <label key={interest} className={optionClassName}>
+                    <input
+                      type="checkbox"
+                      name="interests"
+                      value={interest}
+                      className="size-4 shrink-0 accent-primary"
+                    />
+                    {interest}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <fieldset aria-required="true">
+                <legend className="text-sm font-medium text-espresso">
+                  Dias disponíveis <span className="text-primary">*</span>
+                </legend>
+                <p className="mt-1 text-sm text-muted-foreground">De segunda a quinta-feira.</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+                  {AVAILABLE_DAYS.map((day) => (
+                    <label key={day} className={optionClassName}>
+                      <input
+                        type="checkbox"
+                        name="availableDays"
+                        value={day}
+                        className="size-4 shrink-0 accent-primary"
+                      />
+                      {day}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset aria-required="true">
+                <legend className="text-sm font-medium text-espresso">
+                  Horários disponíveis <span className="text-primary">*</span>
+                </legend>
+                <p className="mt-1 text-sm text-muted-foreground">Horários a partir das 19h.</p>
+                <div className="mt-3 grid grid-cols-3 gap-3 md:grid-cols-1 lg:grid-cols-3">
+                  {AVAILABLE_TIMES.map((time) => (
+                    <label key={time} className={optionClassName}>
+                      <input
+                        type="checkbox"
+                        name="availableTimes"
+                        value={time}
+                        className="size-4 shrink-0 accent-primary"
+                      />
+                      {time}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="goal">
+                O que você deseja alcançar com a mentoria?{" "}
+                <span className="font-normal text-muted-foreground">(opcional)</span>
+              </Label>
+              <Textarea
+                id="goal"
+                name="goal"
+                rows={5}
+                placeholder="Conte quais mudanças, resultados ou próximos passos você busca."
+                className="rounded-xl border-coffee/20 bg-cream/70 px-4 py-3"
+              />
+            </div>
+
+            {formError && (
+              <div
+                role="alert"
+                className="flex items-start gap-3 rounded-xl border border-terracotta/35 bg-terracotta/10 px-4 py-3 text-sm text-coffee"
+              >
+                <CircleAlert className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>{formError}</span>
+              </div>
+            )}
+
+            <div className="flex flex-col items-start gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="submit"
-                className="coral-button inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5"
+                className="primary-button inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
               >
                 <MessageCircle className="size-4" />
                 Continuar no WhatsApp
               </button>
-              <p className="text-xs leading-relaxed text-mist">
-                Nenhuma informação deste formulário é armazenada pelo site.
+              <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
+                Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
+                mensagem antes de enviar.
               </p>
-            </form>
-          </div>
-
-          <aside className="space-y-4 lg:col-span-5">
-            <div className="glass-card rounded-2xl p-7">
-              <span className="eyebrow text-coral">Contato direto</span>
-              <h2 className="mt-3 font-display text-xl font-semibold">Prefere começar sem formulário?</h2>
-              <p className="mt-2 text-sm leading-relaxed text-mist">
-                Abra uma conversa e me conte brevemente qual é o seu objetivo profissional.
-              </p>
-              <a
-                href={whatsappUrl(directMessage)}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-navy/90"
-              >
-                <MessageCircle className="size-4 text-coral" />
-                Chamar no WhatsApp
-              </a>
             </div>
-            <div className="glass-card rounded-2xl p-7">
-              <span className="eyebrow text-coral">O que acontece depois</span>
-              <ol className="mt-4 space-y-3 text-sm text-mist">
-                <li className="flex gap-3">
-                  <span className="font-display font-semibold text-coral">01</span>
-                  Você envia sua mensagem pelo WhatsApp.
-                </li>
-                <li className="flex gap-3">
-                  <span className="font-display font-semibold text-coral">02</span>
-                  Eu respondo e alinhamos formato, frequência e horários.
-                </li>
-                <li className="flex gap-3">
-                  <span className="font-display font-semibold text-coral">03</span>
-                  Marcamos a primeira sessão de diagnóstico.
-                </li>
-              </ol>
-            </div>
-          </aside>
+          </form>
         </div>
       </section>
     </SiteLayout>

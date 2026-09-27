@@ -39,7 +39,10 @@ const FORMAT = [
   { label: "Duração", value: "30 a 60 minutos por sessão, conforme a necessidade do encontro" },
   { label: "Formato", value: "Online, por videochamada, com materiais compartilhados" },
   { label: "Entre sessões", value: "Atividades práticas e acompanhamento dos seus processos" },
-  { label: "Para quem", value: "Profissionais em busca de recolocação, promoção ou transição de área" },
+  {
+    label: "Para quem",
+    value: "Profissionais em busca de recolocação, promoção ou transição de área",
+  },
 ];
 
 function MentoriaPage() {
@@ -55,9 +58,11 @@ function MentoriaPage() {
         <div className="grid gap-4 md:grid-cols-3">
           {PHASES.map((p) => (
             <div key={p.n} className="glass-card rounded-2xl p-7">
-              <span className="font-display text-3xl font-semibold text-coral">{p.n}</span>
+              <span className="font-display text-3xl font-semibold text-terracotta">{p.n}</span>
               <h2 className="mt-4 font-display text-xl font-semibold">{p.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-mist text-pretty">{p.text}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-pretty">
+                {p.text}
+              </p>
             </div>
           ))}
         </div>
@@ -65,12 +70,12 @@ function MentoriaPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="surface rounded-[1.75rem] px-8 py-10 md:px-12">
-          <span className="eyebrow text-coral">Como funciona na prática</span>
+          <span className="eyebrow text-support">Como funciona na prática</span>
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
             {FORMAT.map((f) => (
               <div key={f.label} className="border-t border-line pt-4">
                 <dt className="text-sm font-semibold">{f.label}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-mist">{f.value}</dd>
+                <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">{f.value}</dd>
               </div>
             ))}
           </dl>

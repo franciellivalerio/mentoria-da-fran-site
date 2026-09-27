@@ -3,7 +3,7 @@ import { PageIntro, SiteLayout } from "@/components/site/SiteLayout";
 
 const TITLE = "Planos — Mentoria da Fran";
 const DESC =
-  "Formatos de acompanhamento da mentoria de carreira: sessão avulsa, acompanhamento mensal e programa de transição. Valores sob consulta.";
+  "Formatos de mentoria de carreira para uma necessidade pontual ou um acompanhamento contínuo.";
 
 export const Route = createFileRoute("/planos")({
   head: () => ({
@@ -17,37 +17,55 @@ export const Route = createFileRoute("/planos")({
   component: PlanosPage,
 });
 
-/** Estrutura pronta para receber preços depois (price: null = "sob consulta"). */
 const PLANS: {
   name: string;
   tagline: string;
-  price: string | null;
+  price: string;
+  period: string;
   features: string[];
   highlighted?: boolean;
 }[] = [
   {
     name: "Sessão avulsa",
     tagline: "Para uma necessidade pontual.",
-    price: null,
-    features: ["1 sessão de 30 a 60 min", "Revisão de currículo ou LinkedIn", "Resumo com próximos passos"],
+    price: "R$ 69,90",
+    period: "por sessão",
+    features: [
+      "1 sessão de 30 a 60 min",
+      "Diagnóstico do momento profissional",
+      "Tema definido pelo mentorado",
+      "Resumo com próximos passos",
+    ],
   },
   {
     name: "Acompanhamento mensal",
     tagline: "Para quem quer evoluir com constância.",
-    price: null,
+    price: "R$ 249,90",
+    period: "por mês",
     highlighted: true,
     features: [
-      "Sessões quinzenais",
+      "Sessões semanais",
       "Metas e atividades entre sessões",
+      "Trilha de estudos e PDI",
+      "Portfólio e posicionamento nas redes",
+      "Preparação para entrevistas",
       "Acompanhamento de processos seletivos",
-      "Materiais e templates",
     ],
   },
   {
-    name: "Programa de transição",
-    tagline: "Para mudar de área com método.",
-    price: null,
-    features: ["Plano de 3 meses", "Trilha de estudos personalizada", "Portfólio e posicionamento", "Preparação para entrevistas"],
+    name: "Programa trimestral",
+    tagline: "Para evoluir com estratégia e continuidade.",
+    price: "R$ 690,90",
+    period: "programa completo",
+    features: [
+      "3 meses de acompanhamento",
+      "Sessões semanais",
+      "Metas e atividades entre sessões",
+      "Trilha de estudos e PDI",
+      "Portfólio e posicionamento nas redes",
+      "Preparação para entrevistas",
+      "Acompanhamento de processos seletivos",
+    ],
   },
 ];
 
@@ -57,7 +75,7 @@ function PlanosPage() {
       <PageIntro
         eyebrow="Planos"
         title="Formatos pensados para diferentes momentos de carreira."
-        description="Os valores são combinados de acordo com o formato e a duração do acompanhamento. Fale comigo e montamos o plano ideal para você."
+        description="Escolha uma sessão pontual ou um acompanhamento contínuo para avançar com clareza, estratégia e apoio próximo."
       />
 
       <section className="mx-auto max-w-6xl px-4 py-10 pb-20 sm:px-6">
@@ -67,8 +85,8 @@ function PlanosPage() {
               key={p.name}
               className={
                 p.highlighted
-                  ? "surface relative rounded-2xl p-7 ring-2 ring-coral/45 shadow-soft"
-                  : "glass-card rounded-2xl p-7"
+                  ? "surface relative flex h-full flex-col rounded-2xl p-7 ring-2 ring-terracotta/45 shadow-soft"
+                  : "glass-card flex h-full flex-col rounded-2xl p-7"
               }
             >
               {p.highlighted && (
@@ -77,14 +95,15 @@ function PlanosPage() {
                 </span>
               )}
               <h2 className="font-display text-xl font-semibold">{p.name}</h2>
-              <p className="mt-1 text-sm text-mist">{p.tagline}</p>
-              <div className="mt-6 font-display text-3xl font-semibold">
-                {p.price ?? <span className="text-xl text-coral">Sob consulta</span>}
+              <p className="mt-1 text-sm text-muted-foreground">{p.tagline}</p>
+              <div className="mt-6">
+                <div className="font-display text-3xl font-semibold text-terracotta">{p.price}</div>
+                <p className="mt-1 text-xs text-muted-foreground">{p.period}</p>
               </div>
-              <ul className="mt-6 space-y-2.5 border-t border-line pt-6 text-sm">
+              <ul className="mt-6 flex-1 space-y-2.5 border-t border-line pt-6 text-sm">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <span className="text-coral">✓</span>
+                    <span className="text-olive">✓</span>
                     {f}
                   </li>
                 ))}
@@ -93,8 +112,8 @@ function PlanosPage() {
                 to="/contato"
                 className={
                   p.highlighted
-                    ? "coral-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
-                    : "mt-8 block rounded-xl bg-white/55 px-5 py-3 text-center text-sm font-semibold text-ink ring-1 ring-white/80 hover:bg-white/80"
+                    ? "primary-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
+                    : "secondary-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold"
                 }
               >
                 Falar com a Fran
