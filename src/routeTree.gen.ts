@@ -14,6 +14,8 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MentoriaRouteImport } from './routes/mentoria'
 import { Route as PlanosRouteImport } from './routes/planos'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as RegrasECondicoesRouteImport } from './routes/regras-e-condicoes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +42,16 @@ const PlanosRoute = PlanosRouteImport.update({
   path: '/planos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegrasECondicoesRoute = RegrasECondicoesRouteImport.update({
+  id: '/regras-e-condicoes',
+  path: '/regras-e-condicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/mentoria': typeof MentoriaRoute
   '/planos': typeof PlanosRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/regras-e-condicoes': typeof RegrasECondicoesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/mentoria': typeof MentoriaRoute
   '/planos': typeof PlanosRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/regras-e-condicoes': typeof RegrasECondicoesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +78,37 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/mentoria': typeof MentoriaRoute
   '/planos': typeof PlanosRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/regras-e-condicoes': typeof RegrasECondicoesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contato' | '/faq' | '/mentoria' | '/planos'
+  fullPaths:
+    | '/'
+    | '/contato'
+    | '/faq'
+    | '/mentoria'
+    | '/planos'
+    | '/privacidade'
+    | '/regras-e-condicoes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contato' | '/faq' | '/mentoria' | '/planos'
-  id: '__root__' | '/' | '/contato' | '/faq' | '/mentoria' | '/planos'
+  to:
+    | '/'
+    | '/contato'
+    | '/faq'
+    | '/mentoria'
+    | '/planos'
+    | '/privacidade'
+    | '/regras-e-condicoes'
+  id:
+    | '__root__'
+    | '/'
+    | '/contato'
+    | '/faq'
+    | '/mentoria'
+    | '/planos'
+    | '/privacidade'
+    | '/regras-e-condicoes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +117,8 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   MentoriaRoute: typeof MentoriaRoute
   PlanosRoute: typeof PlanosRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
+  RegrasECondicoesRoute: typeof RegrasECondicoesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regras-e-condicoes': {
+      id: '/regras-e-condicoes'
+      path: '/regras-e-condicoes'
+      fullPath: '/regras-e-condicoes'
+      preLoaderRoute: typeof RegrasECondicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   MentoriaRoute: MentoriaRoute,
   PlanosRoute: PlanosRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
+  RegrasECondicoesRoute: RegrasECondicoesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

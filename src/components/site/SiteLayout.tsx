@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
 
 const NAV = [
   { to: "/mentoria", label: "Mentoria" },
@@ -9,18 +9,60 @@ const NAV = [
   { to: "/contato", label: "Contato" },
 ] as const;
 
+const LEGAL_NAV = [
+  { to: "/regras-e-condicoes", label: "Regras e Condições" },
+  { to: "/privacidade", label: "Política de Privacidade" },
+] as const;
+
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const syncTheme = () => {
+      const savedTheme = window.localStorage.getItem("mentoria-theme");
+      const shouldUseDark = savedTheme ? savedTheme === "dark" : mediaQuery.matches;
+      root.classList.toggle("dark", shouldUseDark);
+      root.style.colorScheme = shouldUseDark ? "dark" : "light";
+      setIsDark(shouldUseDark);
+    };
+
+    syncTheme();
+    mediaQuery.addEventListener("change", syncTheme);
+    return () => mediaQuery.removeEventListener("change", syncTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = isDark ? "light" : "dark";
+    const shouldUseDark = nextTheme === "dark";
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+    document.documentElement.style.colorScheme = nextTheme;
+    window.localStorage.setItem("mentoria-theme", nextTheme);
+    setIsDark(shouldUseDark);
+  };
+
   return (
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 z-50 mx-auto max-w-6xl px-4 pt-4 sm:px-6">
         <nav className="nav-glass flex items-center justify-between rounded-2xl px-4 py-3 sm:px-5">
-          <Link to="/" className="flex items-center gap-3" aria-label="Mentoria da Fran — início">
-            <span className="grid size-8 place-items-center rounded-xl bg-coffee font-display text-sm font-semibold text-cream shadow-soft">
+          <Link
+            to="/"
+            className="flex min-w-0 items-center gap-2.5 sm:gap-3"
+            aria-label="Fran | Mentoria de Carreira — início"
+          >
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-coffee font-signature text-[1.35rem] leading-none text-cream shadow-soft">
               F
             </span>
-            <span className="font-display text-lg font-semibold tracking-tight">
-              Mentoria da Fran
+            <span className="flex min-w-0 items-baseline gap-1.5 whitespace-nowrap">
+              <span className="font-signature text-[1.65rem] leading-none text-heading">Fran</span>
+              <span className="font-body text-sm font-semibold text-muted-foreground/55" aria-hidden="true">
+                |
+              </span>
+              <span className="font-body text-[0.9rem] font-semibold leading-none text-muted-foreground sm:text-base">
+                Mentoria de Carreira
+              </span>
             </span>
           </Link>
           <div className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
@@ -28,14 +70,23 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={n.to}
                 to={n.to}
-                className="transition-colors hover:text-coffee"
-                activeProps={{ className: "text-espresso font-medium" }}
+                className="transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground font-medium" }}
               >
                 {n.label}
               </Link>
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="grid size-9 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
+              title={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
+            >
+              {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </button>
             <Link
               to="/contato"
               className="primary-button hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:inline-flex"
@@ -43,7 +94,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               Quero fazer mentoria
             </Link>
             <button
-              className="grid size-9 place-items-center rounded-xl text-espresso transition-colors hover:bg-sand/45 md:hidden"
+              className="grid size-9 place-items-center rounded-xl text-foreground transition-colors hover:bg-accent md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >
@@ -58,7 +109,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm text-espresso hover:bg-sand/45"
+                className="rounded-xl px-4 py-3 text-sm text-foreground hover:bg-accent"
               >
                 {n.label}
               </Link>
@@ -77,21 +128,42 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <main>{children}</main>
 
       <footer className="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6">
-        <div className="flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
-          <span className="flex items-center gap-2 font-display font-semibold text-espresso">
-            <span className="grid size-7 place-items-center rounded-lg bg-coffee text-xs text-cream">
-              F
+        <div className="border-t border-line pt-6 text-sm text-muted-foreground">
+          <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
+            <span className="flex items-center gap-2.5 text-foreground">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-coffee font-signature text-lg leading-none text-cream">
+                F
+              </span>
+              <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+                <span className="font-signature text-2xl leading-none text-heading">Fran</span>
+                <span className="font-body font-semibold text-muted-foreground/55" aria-hidden="true">
+                  |
+                </span>
+                <span className="font-body text-sm font-semibold text-muted-foreground">
+                  Mentoria de Carreira
+                </span>
+              </span>
             </span>
-            Mentoria da Fran
-          </span>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {NAV.map((n) => (
-              <Link key={n.to} to={n.to} className="hover:text-espresso">
-                {n.label}
-              </Link>
-            ))}
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {NAV.map((n) => (
+                <Link key={n.to} to={n.to} className="hover:text-foreground">
+                  {n.label}
+                </Link>
+              ))}
+            </div>
           </div>
-          <span className="text-xs">© {new Date().getFullYear()} · Mentoria de carreira</span>
+          <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-line pt-5 sm:flex-row sm:items-center">
+            <span className="text-xs">
+              © {new Date().getFullYear()} Mentoria da Fran. Todos os direitos reservados.
+            </span>
+            <div className="font-label flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium">
+              {LEGAL_NAV.map((item) => (
+                <Link key={item.to} to={item.to} className="hover:text-foreground">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </div>

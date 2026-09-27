@@ -94,16 +94,18 @@ function PlanosPage() {
                   Mais procurado
                 </span>
               )}
-              <h2 className="font-display text-xl font-semibold">{p.name}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{p.tagline}</p>
+              <div className="md:min-h-[6.75rem]">
+                <h2 className="font-display text-xl font-semibold">{p.name}</h2>
+                <p className="reading-copy mt-1 text-muted-foreground">{p.tagline}</p>
+              </div>
               <div className="mt-6">
                 <div className="font-display text-3xl font-semibold text-terracotta">{p.price}</div>
                 <p className="mt-1 text-xs text-muted-foreground">{p.period}</p>
               </div>
-              <ul className="mt-6 flex-1 space-y-2.5 border-t border-line pt-6 text-sm">
+              <ul className="reading-copy mt-6 flex-1 space-y-2.5 border-t border-line pt-6">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <span className="text-olive">✓</span>
+                    <span className="text-support">✓</span>
                     {f}
                   </li>
                 ))}

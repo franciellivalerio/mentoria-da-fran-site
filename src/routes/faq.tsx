@@ -69,7 +69,7 @@ function FaqPage() {
               <AccordionTrigger className="py-5 text-left text-base font-semibold hover:no-underline">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+              <AccordionContent className="reading-copy pb-5 text-muted-foreground">
                 {item.a}
               </AccordionContent>
             </AccordionItem>

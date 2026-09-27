@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleAlert, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -55,11 +55,11 @@ const INTEREST_EMOJI: Record<(typeof INTERESTS)[number], string> = {
   "Transição de carreira": "🔄",
 };
 
-const inputClassName = "h-11 rounded-xl border-coffee/20 bg-cream/70 px-4";
+const inputClassName = "h-11 rounded-xl border-input bg-card/70 px-4 text-foreground";
 const optionClassName =
-  "flex cursor-pointer items-center gap-3 rounded-xl border border-coffee/18 bg-cream/60 px-4 py-3 text-sm transition-colors hover:border-terracotta/40 hover:bg-sand/35 has-[:checked]:border-terracotta/55 has-[:checked]:bg-terracotta/10";
+  "flex cursor-pointer items-center gap-3 rounded-xl border border-input bg-card/60 px-4 py-3 text-sm transition-colors hover:border-primary/40 hover:bg-accent has-[:checked]:border-primary/55 has-[:checked]:bg-primary/10";
 const absenceOptionClassName =
-  "mt-2 inline-flex cursor-pointer items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-coffee";
+  "mt-2 inline-flex cursor-pointer items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -99,6 +99,31 @@ function ContatoPage() {
 
   function onInvalid(event: React.InvalidEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const invalidField = event.target;
+    if (invalidField instanceof HTMLInputElement && invalidField.name === "legalAcceptance") {
+      const hasAnotherInvalidField = Array.from(event.currentTarget.elements).some((element) => {
+        const isFormField =
+          element instanceof HTMLInputElement ||
+          element instanceof HTMLTextAreaElement ||
+          element instanceof HTMLSelectElement;
+
+        return (
+          isFormField &&
+          element !== invalidField &&
+          element.willValidate &&
+          !element.validity.valid
+        );
+      });
+
+      if (!hasAnotherInvalidField) {
+        showRequiredWarning(
+          "Você precisa concordar com as Regras e Condições e estar ciente da Política de Privacidade para continuar.",
+        );
+      }
+      return;
+    }
+
     showRequiredWarning();
   }
 
@@ -114,6 +139,7 @@ function ContatoPage() {
     const interests = data.getAll("interests").map(String);
     const availableDays = data.getAll("availableDays").map(String);
     const availableTimes = data.getAll("availableTimes").map(String);
+    const acceptedTerms = data.get("legalAcceptance") === "on";
 
     if (!name || !email || (!noProfession && !profession) || (!noLinkedin && !linkedin)) {
       showRequiredWarning();
@@ -128,6 +154,13 @@ function ContatoPage() {
 
     if (availableDays.length === 0 || availableTimes.length === 0) {
       showRequiredWarning("Selecione pelo menos um dia e um horário disponível.");
+      return;
+    }
+
+    if (!acceptedTerms) {
+      showRequiredWarning(
+        "Leia e aceite as Regras e Condições e a Política de Privacidade para continuar.",
+      );
       return;
     }
 
@@ -165,10 +198,16 @@ function ContatoPage() {
             onChange={() => formError && setFormError(null)}
             className="space-y-8"
           >
-            <p className="text-sm text-muted-foreground">
-              Os campos marcados com <span className="font-semibold text-primary">*</span> são
-              obrigatórios.
-            </p>
+            <div className="space-y-1.5 text-sm text-muted-foreground">
+              <p>
+                Os campos marcados com <span className="font-semibold text-primary">*</span> são
+                obrigatórios.
+              </p>
+              <p className="font-medium text-foreground">
+                Para continuar, também é necessário aceitar as Regras e Condições da Mentoria e
+                declarar ciência da Política de Privacidade.
+              </p>
+            </div>
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">
@@ -207,7 +246,7 @@ function ContatoPage() {
                   required={!noProfession}
                   disabled={noProfession}
                   placeholder="Conte qual é a sua profissão hoje"
-                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-sand/40 disabled:opacity-60`}
+                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60`}
                 />
                 <label className={absenceOptionClassName}>
                   <input
@@ -231,7 +270,7 @@ function ContatoPage() {
                   required={!noLinkedin}
                   disabled={noLinkedin}
                   placeholder="https://linkedin.com/in/seu-perfil"
-                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-sand/40 disabled:opacity-60`}
+                  className={`${inputClassName} disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-60`}
                 />
                 <label className={absenceOptionClassName}>
                   <input
@@ -246,7 +285,7 @@ function ContatoPage() {
             </div>
 
             <fieldset aria-required="true">
-              <legend className="text-sm font-medium text-espresso">
+              <legend className="text-sm font-medium text-foreground">
                 Principais interesses <span className="text-primary">*</span>
               </legend>
               <p className="mt-1 text-sm text-muted-foreground">Você pode marcar mais de um.</p>
@@ -267,7 +306,7 @@ function ContatoPage() {
 
             <div className="grid gap-6 md:grid-cols-2">
               <fieldset aria-required="true">
-                <legend className="text-sm font-medium text-espresso">
+                <legend className="text-sm font-medium text-foreground">
                   Dias disponíveis <span className="text-primary">*</span>
                 </legend>
                 <p className="mt-1 text-sm text-muted-foreground">De segunda a quinta-feira.</p>
@@ -287,7 +326,7 @@ function ContatoPage() {
               </fieldset>
 
               <fieldset aria-required="true">
-                <legend className="text-sm font-medium text-espresso">
+                <legend className="text-sm font-medium text-foreground">
                   Horários disponíveis <span className="text-primary">*</span>
                 </legend>
                 <p className="mt-1 text-sm text-muted-foreground">Horários a partir das 19h.</p>
@@ -317,14 +356,46 @@ function ContatoPage() {
                 name="goal"
                 rows={5}
                 placeholder="Conte quais mudanças, resultados ou próximos passos você busca."
-                className="rounded-xl border-coffee/20 bg-cream/70 px-4 py-3"
+                className="rounded-xl border-input bg-card/70 px-4 py-3 text-foreground"
               />
+            </div>
+
+            <div className="rounded-2xl border border-input bg-card/50 p-5">
+              <div className="flex items-start gap-3">
+                <input
+                  id="legalAcceptance"
+                  name="legalAcceptance"
+                  type="checkbox"
+                  required
+                  className="mt-1 size-4 shrink-0 accent-primary"
+                />
+                <label htmlFor="legalAcceptance" className="text-base leading-relaxed text-foreground">
+                  Li e concordo com as{" "}
+                  <Link
+                    to="/regras-e-condicoes"
+                    className="font-semibold text-primary underline decoration-primary/35 underline-offset-4 hover:text-foreground"
+                  >
+                    Regras e Condições da Mentoria
+                  </Link>{" "}
+                  e declaro estar ciente da{" "}
+                  <Link
+                    to="/privacidade"
+                    className="font-semibold text-primary underline decoration-primary/35 underline-offset-4 hover:text-foreground"
+                  >
+                    Política de Privacidade
+                  </Link>
+                  . <span className="text-primary">*</span>
+                </label>
+              </div>
+              <p className="mt-3 pl-7 text-sm text-muted-foreground">
+                Você poderá consultar estes documentos a qualquer momento no rodapé do site.
+              </p>
             </div>
 
             {formError && (
               <div
                 role="alert"
-                className="flex items-start gap-3 rounded-xl border border-terracotta/35 bg-terracotta/10 px-4 py-3 text-sm text-coffee"
+                className="flex items-start gap-3 rounded-xl border border-primary/35 bg-primary/10 px-4 py-3 text-sm text-foreground"
               >
                 <CircleAlert className="mt-0.5 size-4 shrink-0 text-primary" />
                 <span>{formError}</span>

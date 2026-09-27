@@ -60,10 +60,10 @@ function Index() {
   return (
     <SiteLayout>
       {/* HERO */}
-      <section className="hero-glow mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 md:pb-20 md:pt-16">
+      <section className="hero-glow mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 md:pb-20 md:pt-16">
         <div className="relative grid items-center gap-10 min-[740px]:grid-cols-12 lg:gap-14">
-          <div className="min-[740px]:col-span-7">
-            <span className="eyebrow inline-flex items-center gap-2 rounded-lg bg-cream/60 px-3 py-1.5 font-medium text-primary ring-1 ring-cream/80 backdrop-blur-md">
+          <div className="min-[740px]:col-span-7 min-[1100px]:col-span-5">
+            <span className="eyebrow inline-flex items-center gap-2 rounded-lg bg-card/60 px-3 py-1.5 font-medium text-primary ring-1 ring-border backdrop-blur-md">
               Mentoria de carreira • 1:1
             </span>
             <h1 className="mt-6 max-w-[20ch] font-display text-4xl font-bold leading-[1.04] tracking-[-0.025em] text-balance sm:text-5xl lg:text-[3.4rem]">
@@ -89,7 +89,7 @@ function Index() {
               </Link>
             </div>
           </div>
-          <div className="min-[740px]:col-span-5">
+          <div className="min-[740px]:col-span-5 min-[1100px]:col-span-7">
             <TransformationMapVisual />
           </div>
         </div>
@@ -99,7 +99,7 @@ function Index() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">
         <div className="surface overflow-hidden rounded-[1.75rem] px-7 py-9 sm:px-9 md:px-12 md:py-12">
           <span className="eyebrow text-support">Trajetória construída na prática</span>
-          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-coffee md:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-heading md:text-4xl">
             Minha trajetória
           </h2>
 
@@ -132,13 +132,13 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-10 border-t border-coffee/12 pt-8">
+          <div className="mt-10 border-t border-line pt-8">
             <span className="eyebrow text-support">Credenciais e experiência</span>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {CREDENTIALS.map((credential) => (
                 <li
                   key={credential}
-                  className="font-label flex items-start gap-3 rounded-xl bg-cream/52 px-4 py-4 text-sm font-semibold text-coffee ring-1 ring-cream/80"
+                  className="font-label flex items-start gap-3 rounded-xl bg-card/55 px-4 py-4 text-sm font-semibold text-foreground ring-1 ring-border"
                 >
                   <CheckCircle2
                     className="mt-0.5 size-4 shrink-0 text-terracotta"
@@ -168,8 +168,8 @@ function Index() {
               key={a.title}
               className="glass-card group rounded-2xl p-5 transition-transform hover:-translate-y-1"
             >
-              <span className="font-display text-lg font-semibold text-coffee">{a.title}</span>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-pretty">
+              <span className="font-display text-lg font-semibold text-heading">{a.title}</span>
+              <p className="reading-copy mt-2 text-muted-foreground text-pretty">
                 {a.text}
               </p>
             </div>
@@ -189,8 +189,8 @@ function Index() {
               <div key={s.n} className="flex gap-4">
                 <span className="font-display text-2xl font-semibold text-terracotta">{s.n}</span>
                 <div>
-                  <span className="text-sm font-semibold">{s.title}</span>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground text-pretty">
+                  <span className="text-base font-semibold sm:text-[1.0625rem]">{s.title}</span>
+                  <p className="reading-copy mt-1 text-muted-foreground text-pretty">
                     {s.text}
                   </p>
                 </div>
@@ -217,8 +217,8 @@ function Index() {
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
             {BENEFITS.map((b) => (
-              <li key={b} className="glass-card flex items-start gap-3 rounded-2xl p-5 text-sm">
-                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-olive/14 text-[10px] font-bold text-olive">
+              <li key={b} className="reading-copy glass-card flex items-start gap-3 rounded-2xl p-5">
+                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-[10px] font-bold text-support">
                   ✓
                 </span>
                 {b}

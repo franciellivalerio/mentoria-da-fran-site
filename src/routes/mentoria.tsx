@@ -60,7 +60,7 @@ function MentoriaPage() {
             <div key={p.n} className="glass-card rounded-2xl p-7">
               <span className="font-display text-3xl font-semibold text-terracotta">{p.n}</span>
               <h2 className="mt-4 font-display text-xl font-semibold">{p.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-pretty">
+              <p className="reading-copy mt-3 text-muted-foreground text-pretty">
                 {p.text}
               </p>
             </div>
@@ -74,8 +74,8 @@ function MentoriaPage() {
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
             {FORMAT.map((f) => (
               <div key={f.label} className="border-t border-line pt-4">
-                <dt className="text-sm font-semibold">{f.label}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">{f.value}</dd>
+                <dt className="text-base font-semibold sm:text-[1.0625rem]">{f.label}</dt>
+                <dd className="reading-copy mt-1 text-muted-foreground">{f.value}</dd>
               </div>
             ))}
           </dl>
