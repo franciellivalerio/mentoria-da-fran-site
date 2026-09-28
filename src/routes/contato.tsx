@@ -191,7 +191,7 @@ function GeneralContactPage() {
                 <Mail className="size-4" />
                 Continuar pelo Gmail
               </button>
-              <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
+              <p className="max-w-sm text-left text-xs leading-relaxed text-muted-foreground">
                 Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
                 mensagem antes de enviar.
               </p>
@@ -528,7 +528,7 @@ function MentorshipContactPage() {
                 <MessageCircle className="size-4" />
                 Continuar no WhatsApp
               </button>
-              <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
+              <p className="max-w-sm text-left text-xs leading-relaxed text-muted-foreground">
                 Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
                 mensagem antes de enviar.
               </p>

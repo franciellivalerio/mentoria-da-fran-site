@@ -224,15 +224,19 @@ function Index() {
                     </span>
                     <h3 className="font-display text-xl font-semibold text-heading">{title}</h3>
                   </div>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-label rounded-full border border-line bg-card/65 px-3 py-1.5 text-sm font-medium text-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="mt-5 grid grid-cols-2 content-start gap-2">
+                    {tags.map((tag) => {
+                      const usesFullRow = tag === "Roadmap de Carreira" || tag.length >= 20;
+
+                      return (
+                        <span
+                          key={tag}
+                          className={`font-label flex min-h-11 items-center justify-center rounded-xl border border-line bg-card/65 px-3 py-2 text-center text-sm font-medium leading-snug text-foreground ${usesFullRow ? "col-span-2" : ""}`}
+                        >
+                          {tag}
+                        </span>
+                      );
+                    })}
                   </div>
                 </article>
               ))}
