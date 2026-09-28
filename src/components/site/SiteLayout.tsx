@@ -46,16 +46,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 z-50 mx-auto max-w-6xl px-4 pt-4 sm:px-6">
-        <nav className="nav-glass flex items-center justify-between rounded-2xl px-4 py-3 sm:px-5">
+        <nav className="nav-glass flex min-w-0 items-center justify-between gap-2 overflow-hidden rounded-2xl px-4 py-3 sm:px-5">
           <Link
             to="/"
-            className="flex min-w-0 items-center gap-2.5 sm:gap-3"
+            className="flex min-w-0 flex-1 items-center gap-2.5 overflow-hidden sm:gap-3 md:flex-none"
             aria-label="Fran | Mentoria de Carreira — início"
           >
             <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-coffee font-signature text-[1.35rem] leading-none text-cream shadow-soft">
               F
             </span>
-            <span className="flex min-w-0 items-baseline gap-1.5 whitespace-nowrap">
+            <span className="flex min-w-0 items-baseline gap-1.5 overflow-hidden whitespace-nowrap">
               <span className="font-signature text-[1.65rem] leading-none text-heading">Fran</span>
               <span
                 className="font-body text-sm font-semibold text-muted-foreground/55"
@@ -63,7 +63,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               >
                 |
               </span>
-              <span className="font-body text-[0.9rem] font-semibold leading-none text-muted-foreground sm:text-base">
+              <span className="truncate font-body text-[0.9rem] font-semibold leading-none text-muted-foreground sm:text-base">
                 Mentoria de Carreira
               </span>
             </span>
@@ -81,7 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <button
               type="button"
               onClick={toggleTheme}
@@ -137,11 +137,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <footer className="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6">
         <div className="border-t border-line pt-6 text-sm text-muted-foreground">
           <div className="flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-left">
-            <span className="flex items-center justify-center gap-2.5 text-foreground">
+            <span className="flex max-w-full items-center justify-center gap-2.5 overflow-hidden text-foreground">
               <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-coffee font-signature text-lg leading-none text-cream">
                 F
               </span>
-              <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+              <span className="flex min-w-0 items-baseline gap-1.5 overflow-hidden whitespace-nowrap">
                 <span className="font-signature text-2xl leading-none text-heading">Fran</span>
                 <span
                   className="font-body font-semibold text-muted-foreground/55"
@@ -149,7 +149,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 >
                   |
                 </span>
-                <span className="font-body text-sm font-semibold text-muted-foreground">
+                <span className="truncate font-body text-sm font-semibold text-muted-foreground">
                   Mentoria de Carreira
                 </span>
               </span>

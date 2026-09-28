@@ -184,13 +184,20 @@
   }
 
   html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
   }
 
   body {
+    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
-    overflow-x: clip;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
     background:
       radial-gradient(
         circle at 8% 10%,

@@ -87,7 +87,7 @@ function Index() {
   return (
     <SiteLayout>
       {/* HERO */}
-      <section className="hero-glow mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 md:pb-20 md:pt-16">
+      <section className="hero-glow mx-auto max-w-6xl px-4 pb-8 pt-12 sm:px-6 md:pb-10 md:pt-16">
         <div className="relative grid gap-10 lg:gap-12">
           <div className="max-w-4xl">
             <span className="eyebrow inline-flex items-center gap-2 rounded-lg bg-card/60 px-3 py-1.5 font-medium text-primary ring-1 ring-border backdrop-blur-md">
@@ -124,7 +124,7 @@ function Index() {
       </section>
 
       {/* TRAJECTORY */}
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">
+      <section className="mx-auto max-w-6xl px-4 pb-12 pt-4 sm:px-6 md:pb-16 md:pt-6">
         <div className="surface overflow-hidden rounded-[1.75rem] px-7 py-9 sm:px-9 md:px-12 md:py-12">
           <span className="eyebrow text-support">Trajetória construída na prática</span>
           <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-heading md:text-4xl">
