@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CircleAlert, MessageCircle } from "lucide-react";
+import { CircleAlert, Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { PageIntro, SiteLayout } from "@/components/site/SiteLayout";
@@ -12,6 +12,7 @@ const DESC =
   "Entre em contato com a Fran para dúvidas, parcerias, convites ou informações sobre a mentoria de carreira.";
 
 const WHATSAPP_NUMBER = "5521990585036";
+const CONTACT_EMAIL = "franciellivaleriodeoliveira@gmail.com";
 
 const INTERESTS = [
   "Currículo",
@@ -119,16 +120,12 @@ function GeneralContactPage() {
       return;
     }
 
-    const text = [
-      `Olá, Fran! ${MESSAGE_MARKER.greeting}`,
-      `${MESSAGE_MARKER.name} *Nome*\n${name}`,
-      `💬 *Mensagem*\n${message}`,
-      `Fico no aguardo do seu retorno. ${MESSAGE_MARKER.farewell}`,
-    ].join("\n\n");
+    const subject = encodeURIComponent(`Contato pelo site — ${name}`);
+    const body = encodeURIComponent(`Olá, Fran!\n\nMeu nome é ${name}.\n\n${message}`);
 
     setFormError(null);
-    window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
-    toast.success("WhatsApp aberto com a sua mensagem pronta.");
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    toast.success("Aplicativo de e-mail aberto com a sua mensagem pronta.");
   }
 
   return (
@@ -136,7 +133,7 @@ function GeneralContactPage() {
       <PageIntro
         eyebrow="Contato"
         title="Como posso ajudar?"
-        description="Envie sua mensagem para dúvidas, parcerias, convites ou outros assuntos. Ao continuar, abriremos o WhatsApp para você revisar e enviar."
+        description="Envie sua mensagem para dúvidas, parcerias, convites ou outros assuntos. Ao continuar, abriremos seu aplicativo de e-mail para você revisar e enviar."
       />
 
       <section className="mx-auto max-w-3xl px-4 py-8 pb-20 sm:px-6">
@@ -190,12 +187,12 @@ function GeneralContactPage() {
                 type="submit"
                 className="primary-button inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
               >
-                <MessageCircle className="size-4" />
-                Continuar no WhatsApp
+                <Mail className="size-4" />
+                Continuar por e-mail
               </button>
               <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
-                Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
-                mensagem antes de enviar.
+                A mensagem será preparada para {CONTACT_EMAIL}. Nenhuma informação é armazenada pelo
+                site.
               </p>
             </div>
           </form>
@@ -302,7 +299,7 @@ function MentorshipContactPage() {
   return (
     <SiteLayout>
       <PageIntro
-        eyebrow="Contato"
+        eyebrow="Iniciar mentoria"
         title="Vamos conversar sobre o seu próximo passo?"
         description="Conte um pouco sobre o seu momento profissional. Ao continuar, abriremos o WhatsApp com a mensagem pronta para você revisar e enviar."
       />

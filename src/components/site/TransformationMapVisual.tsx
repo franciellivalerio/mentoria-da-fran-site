@@ -1,24 +1,32 @@
 import { Fragment } from "react";
-import { ArrowRight, Flag, MapPin, Route, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, Flag, MapPin, Route, SlidersHorizontal, Target } from "lucide-react";
 
 const TRANSFORMATION_STAGES = [
   {
     title: "Onde você está",
     description:
-      "Dúvidas, insegurança, materiais que não representam bem seu potencial ou falta de direção.",
+      "Entendemos seu momento atual, suas dúvidas, dificuldades, experiências e os pontos que hoje limitam seu avanço profissional.",
     icon: MapPin,
     className: "bg-card/72 ring-border",
   },
   {
-    title: "O que ajustamos",
-    description: "Currículo, LinkedIn, entrevistas, narrativa profissional e plano de ação.",
+    title: "Onde você quer chegar",
+    description:
+      "Definimos seus objetivos, prioridades e a direção profissional que faz sentido para o seu momento de carreira.",
+    icon: Target,
+    className: "bg-secondary/55 ring-border",
+  },
+  {
+    title: "O que vamos construir",
+    description:
+      "Trabalhamos currículo, LinkedIn, entrevistas, posicionamento, narrativa profissional e um plano de ação alinhado aos seus objetivos.",
     icon: SlidersHorizontal,
     className: "bg-secondary/55 ring-border",
   },
   {
-    title: "Onde você pode chegar",
+    title: "Como você chega lá",
     description:
-      "Posicionamento mais forte, mais confiança para se apresentar e mais preparo para novas oportunidades.",
+      "Você sai com mais clareza, estratégia e direcionamento para colocar o plano em prática e avançar em direção às próximas oportunidades.",
     icon: Flag,
     className: "bg-primary/10 ring-primary/20",
   },
@@ -50,7 +58,7 @@ export function TransformationMapVisual() {
           </span>
         </div>
 
-        <div className="mt-7 grid items-stretch gap-3.5 min-[1100px]:grid-cols-[minmax(0,1fr)_1.25rem_minmax(0,1fr)_1.25rem_minmax(0,1fr)] min-[1100px]:gap-3">
+        <div className="mt-7 grid items-stretch gap-3.5 min-[1100px]:grid-cols-[minmax(0,1fr)_1.1rem_minmax(0,1fr)_1.1rem_minmax(0,1fr)_1.1rem_minmax(0,1fr)] min-[1100px]:gap-2.5">
           {TRANSFORMATION_STAGES.map((stage, index) => {
             const Icon = stage.icon;
 
