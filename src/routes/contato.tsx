@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 
 const TITLE = "Contato — Mentoria da Fran";
 const DESC =
-  "Fale com a Fran pelo WhatsApp para começar sua mentoria de carreira e conhecer os formatos de acompanhamento.";
+  "Entre em contato com a Fran para dúvidas, parcerias, convites ou informações sobre a mentoria de carreira.";
 
 const WHATSAPP_NUMBER = "5521990585036";
 
@@ -62,6 +62,9 @@ const absenceOptionClassName =
   "mt-2 inline-flex cursor-pointer items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground";
 
 export const Route = createFileRoute("/contato")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    assunto: search["assunto"] === "mentoria" ? ("mentoria" as const) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: TITLE },
@@ -86,6 +89,123 @@ function whatsappUrl(message: string) {
 }
 
 function ContatoPage() {
+  const { assunto } = Route.useSearch();
+
+  return assunto === "mentoria" ? <MentorshipContactPage /> : <GeneralContactPage />;
+}
+
+function GeneralContactPage() {
+  const [formError, setFormError] = useState<string | null>(null);
+
+  function onInvalid(event: React.InvalidEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const message = "Preencha seu nome e a mensagem antes de continuar.";
+    setFormError(message);
+    toast.error(message, { id: "contact-required-fields" });
+  }
+
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get("name") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+
+    if (!name || !message) {
+      const warning = "Preencha seu nome e a mensagem antes de continuar.";
+      setFormError(warning);
+      toast.error(warning, { id: "contact-required-fields" });
+      event.currentTarget.reportValidity();
+      return;
+    }
+
+    const text = [
+      `Olá, Fran! ${MESSAGE_MARKER.greeting}`,
+      `${MESSAGE_MARKER.name} *Nome*\n${name}`,
+      `💬 *Mensagem*\n${message}`,
+      `Fico no aguardo do seu retorno. ${MESSAGE_MARKER.farewell}`,
+    ].join("\n\n");
+
+    setFormError(null);
+    window.open(whatsappUrl(text), "_blank", "noopener,noreferrer");
+    toast.success("WhatsApp aberto com a sua mensagem pronta.");
+  }
+
+  return (
+    <SiteLayout>
+      <PageIntro
+        eyebrow="Contato"
+        title="Como posso ajudar?"
+        description="Envie sua mensagem para dúvidas, parcerias, convites ou outros assuntos. Ao continuar, abriremos o WhatsApp para você revisar e enviar."
+      />
+
+      <section className="mx-auto max-w-3xl px-4 py-8 pb-20 sm:px-6">
+        <div className="surface rounded-[1.75rem] p-6 sm:p-8 md:p-10">
+          <form
+            onSubmit={onSubmit}
+            onInvalid={onInvalid}
+            onChange={() => formError && setFormError(null)}
+            className="space-y-7"
+          >
+            <div className="space-y-2">
+              <Label htmlFor="contact-name">
+                Nome <span className="text-primary">*</span>
+              </Label>
+              <Input
+                id="contact-name"
+                name="name"
+                required
+                autoComplete="name"
+                placeholder="Seu nome"
+                className={inputClassName}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contact-message">
+                Mensagem <span className="text-primary">*</span>
+              </Label>
+              <Textarea
+                id="contact-message"
+                name="message"
+                required
+                rows={8}
+                placeholder="Escreva livremente sobre o assunto que gostaria de conversar."
+                className="rounded-xl border-input bg-card/70 px-4 py-3 text-foreground"
+              />
+            </div>
+
+            {formError && (
+              <div
+                role="alert"
+                className="flex items-start gap-3 rounded-xl border border-primary/35 bg-primary/10 px-4 py-3 text-sm text-foreground"
+              >
+                <CircleAlert className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>{formError}</span>
+              </div>
+            )}
+
+            <div className="flex flex-col items-start gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="submit"
+                className="primary-button inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
+              >
+                <MessageCircle className="size-4" />
+                Continuar no WhatsApp
+              </button>
+              <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
+                Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
+                mensagem antes de enviar.
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}
+
+function MentorshipContactPage() {
   const [noProfession, setNoProfession] = useState(false);
   const [noLinkedin, setNoLinkedin] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -109,10 +229,7 @@ function ContatoPage() {
           element instanceof HTMLSelectElement;
 
         return (
-          isFormField &&
-          element !== invalidField &&
-          element.willValidate &&
-          !element.validity.valid
+          isFormField && element !== invalidField && element.willValidate && !element.validity.valid
         );
       });
 
@@ -369,7 +486,10 @@ function ContatoPage() {
                   required
                   className="mt-1 size-4 shrink-0 accent-primary"
                 />
-                <label htmlFor="legalAcceptance" className="text-base leading-relaxed text-foreground">
+                <label
+                  htmlFor="legalAcceptance"
+                  className="text-base leading-relaxed text-foreground"
+                >
                   Li e concordo com as{" "}
                   <Link
                     to="/regras-e-condicoes"

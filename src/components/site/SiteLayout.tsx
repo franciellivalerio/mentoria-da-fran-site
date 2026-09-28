@@ -3,10 +3,10 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 const NAV = [
-  { to: "/mentoria", label: "Mentoria" },
-  { to: "/planos", label: "Planos" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contato", label: "Contato" },
+  { to: "/mentoria", label: "Mentoria", search: {} },
+  { to: "/planos", label: "Planos", search: {} },
+  { to: "/faq", label: "FAQ", search: {} },
+  { to: "/contato", label: "Contato", search: { assunto: undefined } },
 ] as const;
 
 const LEGAL_NAV = [
@@ -57,7 +57,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </span>
             <span className="flex min-w-0 items-baseline gap-1.5 whitespace-nowrap">
               <span className="font-signature text-[1.65rem] leading-none text-heading">Fran</span>
-              <span className="font-body text-sm font-semibold text-muted-foreground/55" aria-hidden="true">
+              <span
+                className="font-body text-sm font-semibold text-muted-foreground/55"
+                aria-hidden="true"
+              >
                 |
               </span>
               <span className="font-body text-[0.9rem] font-semibold leading-none text-muted-foreground sm:text-base">
@@ -70,6 +73,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={n.to}
                 to={n.to}
+                search={n.search}
                 className="transition-colors hover:text-foreground"
                 activeProps={{ className: "text-foreground font-medium" }}
               >
@@ -89,6 +93,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </button>
             <Link
               to="/contato"
+              search={{ assunto: "mentoria" }}
               className="primary-button hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:inline-flex"
             >
               Quero fazer mentoria
@@ -108,6 +113,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Link
                 key={n.to}
                 to={n.to}
+                search={n.search}
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-4 py-3 text-sm text-foreground hover:bg-accent"
               >
@@ -116,6 +122,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             ))}
             <Link
               to="/contato"
+              search={{ assunto: "mentoria" }}
               onClick={() => setOpen(false)}
               className="primary-button mt-1 rounded-xl px-4 py-3 text-center text-sm font-semibold text-primary-foreground"
             >
@@ -129,14 +136,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <footer className="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6">
         <div className="border-t border-line pt-6 text-sm text-muted-foreground">
-          <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
-            <span className="flex items-center gap-2.5 text-foreground">
+          <div className="flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-left">
+            <span className="flex items-center justify-center gap-2.5 text-foreground">
               <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-coffee font-signature text-lg leading-none text-cream">
                 F
               </span>
               <span className="flex items-baseline gap-1.5 whitespace-nowrap">
                 <span className="font-signature text-2xl leading-none text-heading">Fran</span>
-                <span className="font-body font-semibold text-muted-foreground/55" aria-hidden="true">
+                <span
+                  className="font-body font-semibold text-muted-foreground/55"
+                  aria-hidden="true"
+                >
                   |
                 </span>
                 <span className="font-body text-sm font-semibold text-muted-foreground">
@@ -144,19 +154,19 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 </span>
               </span>
             </span>
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
               {NAV.map((n) => (
-                <Link key={n.to} to={n.to} className="hover:text-foreground">
+                <Link key={n.to} to={n.to} search={n.search} className="hover:text-foreground">
                   {n.label}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-line pt-5 sm:flex-row sm:items-center">
+          <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-line pt-5 text-center sm:flex-row sm:text-left">
             <span className="text-xs">
               © {new Date().getFullYear()} Mentoria da Fran. Todos os direitos reservados.
             </span>
-            <div className="font-label flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium">
+            <div className="font-label flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-medium sm:justify-end">
               {LEGAL_NAV.map((item) => (
                 <Link key={item.to} to={item.to} className="hover:text-foreground">
                   {item.label}
@@ -209,6 +219,7 @@ export function CtaBand() {
         </div>
         <Link
           to="/contato"
+          search={{ assunto: "mentoria" }}
           className="primary-button relative inline-flex w-full justify-center rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
         >
           Quero fazer mentoria

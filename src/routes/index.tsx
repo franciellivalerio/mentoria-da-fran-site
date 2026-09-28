@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2 } from "lucide-react";
+import { Award, CheckCircle2, Compass, Database } from "lucide-react";
 import { CareerStrategyMapVisual } from "@/components/site/CareerStrategyMapVisual";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { TransformationMapVisual } from "@/components/site/TransformationMapVisual";
@@ -44,16 +44,43 @@ const BENEFITS = [
   "Materiais e templates prontos para usar",
 ];
 
+const DATA_SKILLS = [
+  "Databricks",
+  "SQL",
+  "Spark SQL",
+  "Python",
+  "PySpark",
+  "Azure Cloud",
+  "Ecossistema Azure",
+  "ETL/ELT",
+  "Data Lakehouse",
+  "Modelagem de Dados",
+  "Qualidade de Dados",
+  "Governança de Dados",
+] as const;
+
+const CAREER_SKILLS = [
+  "Currículo ATS",
+  "LinkedIn",
+  "Entrevistas",
+  "Gupy",
+  "Pitch Profissional",
+  "PDI",
+  "Roadmap de Carreira",
+  "Estratégia de Candidatura",
+  "Posicionamento Profissional",
+] as const;
+
 const CREDENTIALS = [
-  "Engenheira de Dados",
+  "Engenheira de Dados Pleno",
   "Mentora e palestrante",
-  "Estágio conquistado em 6 meses",
-  "Efetivada como júnior em menos de 1 ano",
-  "Promovida a pleno em menos de 2 anos de carreira",
   "Embaixadora e Alumni da Generation Brasil",
   "Certificações Databricks",
-  "Experiência com currículo, LinkedIn e entrevistas",
-  "Vivência prática em processos seletivos e Gupy",
+] as const;
+
+const EXPERIENCE_GROUPS = [
+  { title: "Engenharia de Dados", icon: Database, tags: DATA_SKILLS },
+  { title: "Carreira & Posicionamento", icon: Compass, tags: CAREER_SKILLS },
 ] as const;
 
 function Index() {
@@ -77,6 +104,7 @@ function Index() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/contato"
+                search={{ assunto: "mentoria" }}
                 className="primary-button rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5"
               >
                 Quero fazer mentoria
@@ -111,22 +139,75 @@ function Index() {
             <div className="lg:col-span-7">
               <div className="max-w-[61ch] space-y-5 text-[1.12rem] font-medium leading-[1.7] text-muted-foreground text-pretty md:text-[1.18rem]">
                 <p>
-                  Sou engenheira de dados, mentora e palestrante. Construí minha trajetória
-                  profissional com estratégia, constância e posicionamento. Conquistei meu primeiro
-                  estágio em apenas 6 meses, fui efetivada como júnior em menos de 1 ano e promovida
-                  a pleno com menos de 2 anos de carreira.
+                  Sou{" "}
+                  <strong className="font-semibold text-foreground">
+                    Engenheira de Dados, mentora e palestrante
+                  </strong>
+                  , e construí minha trajetória profissional a partir de três pilares que hoje
+                  também fazem parte da minha forma de orientar carreiras:{" "}
+                  <strong className="font-semibold text-foreground">
+                    estratégia, constância e posicionamento
+                  </strong>
+                  .
                 </p>
                 <p>
-                  Ao longo desse caminho, também me tornei embaixadora e alumni da Generation
-                  Brasil, conquistei certificações Databricks e desenvolvi experiência prática com
-                  currículo, LinkedIn, preparação para entrevistas e processos seletivos. Já venci
-                  processos pela Gupy e aprendi, na prática, como posicionamento, clareza e
-                  estratégia fazem diferença na forma como um profissional se apresenta ao mercado.
+                  Em menos de dois anos de carreira, saí da busca pela primeira oportunidade para
+                  alcançar a posição de{" "}
+                  <strong className="font-semibold text-foreground">
+                    Engenheira de Dados Pleno
+                  </strong>
+                  . Conquistei meu primeiro estágio em apenas seis meses, avancei para uma posição
+                  efetiva antes de completar um ano de experiência e continuei construindo uma
+                  trajetória de crescimento acelerado, sustentada por desenvolvimento técnico,
+                  posicionamento profissional e decisões conscientes de carreira.
                 </p>
                 <p>
-                  Hoje, transformo essa experiência em orientação prática para ajudar outras pessoas
-                  a enxergarem melhor o próprio momento profissional, fortalecerem seu
-                  posicionamento e avançarem com mais clareza em direção às próximas oportunidades.
+                  Ao longo desse caminho, tornei-me{" "}
+                  <strong className="font-semibold text-foreground">
+                    embaixadora e alumni da Generation Brasil
+                  </strong>
+                  , conquistei certificações da{" "}
+                  <strong className="font-semibold text-foreground">Databricks</strong> e ampliei
+                  minha atuação para além da tecnologia, desenvolvendo experiência prática em{" "}
+                  <strong className="font-semibold text-foreground">
+                    currículo, LinkedIn, entrevistas, processos seletivos e posicionamento
+                    profissional
+                  </strong>
+                  .
+                </p>
+                <p>
+                  Também vivi esses processos do outro lado. Passei por diferentes etapas seletivas,
+                  conquistei aprovações em processos conduzidos por plataformas como a{" "}
+                  <strong className="font-semibold text-foreground">Gupy</strong> e aprendi, na
+                  prática, que competência técnica, por si só, nem sempre é suficiente. É preciso
+                  saber{" "}
+                  <strong className="font-semibold text-foreground">
+                    comunicar valor, apresentar resultados, construir uma narrativa profissional
+                    coerente e entender como o mercado enxerga o seu perfil
+                  </strong>
+                  .
+                </p>
+                <p className="font-semibold text-foreground">
+                  Foi dessa experiência que nasceu a minha mentoria.
+                </p>
+                <p>
+                  Hoje, transformo tudo o que aprendi ao construir minha própria carreira em uma
+                  orientação{" "}
+                  <strong className="font-semibold text-foreground">
+                    estratégica, prática e individualizada
+                  </strong>
+                  , ajudando profissionais a compreenderem melhor o momento em que estão,
+                  reconhecerem o valor da própria trajetória e estruturarem os próximos passos com
+                  mais clareza.
+                </p>
+                <p>
+                  Meu objetivo não é entregar fórmulas prontas ou promessas de contratação. É ajudar
+                  cada mentorado a construir um posicionamento profissional mais forte, tomar
+                  decisões com estratégia e estar mais preparado para{" "}
+                  <strong className="font-semibold text-foreground">
+                    conquistar as oportunidades que deseja alcançar
+                  </strong>
+                  .
                 </p>
               </div>
             </div>
@@ -134,20 +215,51 @@ function Index() {
 
           <div className="mt-10 border-t border-line pt-8">
             <span className="eyebrow text-support">Credenciais e experiência</span>
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {CREDENTIALS.map((credential) => (
-                <li
-                  key={credential}
-                  className="font-label flex items-start gap-3 rounded-xl bg-card/55 px-4 py-4 text-sm font-semibold text-foreground ring-1 ring-border"
-                >
-                  <CheckCircle2
-                    className="mt-0.5 size-4 shrink-0 text-terracotta"
-                    strokeWidth={2}
-                  />
-                  <span>{credential}</span>
-                </li>
+            <div className="mt-5 grid gap-4 lg:grid-cols-3">
+              {EXPERIENCE_GROUPS.map(({ title, icon: Icon, tags }) => (
+                <article key={title} className="glass-card rounded-2xl p-5">
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-terracotta/12 text-terracotta ring-1 ring-terracotta/20">
+                      <Icon className="size-4" strokeWidth={1.8} aria-hidden="true" />
+                    </span>
+                    <h3 className="font-display text-xl font-semibold text-heading">{title}</h3>
+                  </div>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-label rounded-full border border-line bg-card/65 px-3 py-1.5 text-sm font-medium text-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
               ))}
-            </ul>
+
+              <article className="glass-card rounded-2xl p-5">
+                <div className="flex items-center gap-3">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-terracotta/12 text-terracotta ring-1 ring-terracotta/20">
+                    <Award className="size-4" strokeWidth={1.8} aria-hidden="true" />
+                  </span>
+                  <h3 className="font-display text-xl font-semibold text-heading">Credenciais</h3>
+                </div>
+                <ul className="mt-5 space-y-3">
+                  {CREDENTIALS.map((credential) => (
+                    <li
+                      key={credential}
+                      className="font-label flex items-start gap-3 text-sm font-semibold text-foreground"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 size-4 shrink-0 text-terracotta"
+                        strokeWidth={2}
+                      />
+                      <span>{credential}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -169,9 +281,7 @@ function Index() {
               className="glass-card group rounded-2xl p-5 transition-transform hover:-translate-y-1"
             >
               <span className="font-display text-lg font-semibold text-heading">{a.title}</span>
-              <p className="reading-copy mt-2 text-muted-foreground text-pretty">
-                {a.text}
-              </p>
+              <p className="reading-copy mt-2 text-muted-foreground text-pretty">{a.text}</p>
             </div>
           ))}
         </div>
@@ -190,9 +300,7 @@ function Index() {
                 <span className="font-display text-2xl font-semibold text-terracotta">{s.n}</span>
                 <div>
                   <span className="text-base font-semibold sm:text-[1.0625rem]">{s.title}</span>
-                  <p className="reading-copy mt-1 text-muted-foreground text-pretty">
-                    {s.text}
-                  </p>
+                  <p className="reading-copy mt-1 text-muted-foreground text-pretty">{s.text}</p>
                 </div>
               </div>
             ))}
@@ -217,7 +325,10 @@ function Index() {
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
             {BENEFITS.map((b) => (
-              <li key={b} className="reading-copy glass-card flex items-start gap-3 rounded-2xl p-5">
+              <li
+                key={b}
+                className="reading-copy glass-card flex items-start gap-3 rounded-2xl p-5"
+              >
                 <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-[10px] font-bold text-support">
                   ✓
                 </span>

@@ -196,6 +196,7 @@ function PrivacyPage() {
           </LegalParagraph>
           <Link
             to="/contato"
+            search={{ assunto: undefined }}
             className="font-label inline-flex rounded-xl border border-input bg-card/65 px-5 py-3 text-base font-semibold text-foreground transition-colors hover:bg-accent"
           >
             Acessar página de contato

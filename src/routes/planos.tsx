@@ -112,6 +112,7 @@ function PlanosPage() {
               </ul>
               <Link
                 to="/contato"
+                search={{ assunto: "mentoria" }}
                 className={
                   p.highlighted
                     ? "primary-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
