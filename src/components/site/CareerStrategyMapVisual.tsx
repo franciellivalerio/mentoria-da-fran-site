@@ -120,7 +120,7 @@ export function CareerStrategyMapVisual() {
                 }`}
               >
                 <div className="min-w-0">
-                  <span className="font-label block text-[0.64rem] font-semibold uppercase tracking-[0.13em] text-support">
+                  <span className="font-label block text-[0.64rem] font-semibold uppercase tracking-[0.13em] text-coffee">
                     {milestone.eyebrow}
                   </span>
                   <span className="mt-1 block text-[1.02rem] font-semibold leading-tight text-coffee">
