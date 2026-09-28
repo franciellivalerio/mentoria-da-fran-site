@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="coffeeBackground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#302925" />
+      <stop offset="0.55" stop-color="#51443d" />
+      <stop offset="1" stop-color="#705548" />
+    </linearGradient>
+    <radialGradient id="warmGlow" cx="0.82" cy="0.18" r="0.72">
+      <stop offset="0" stop-color="#b97863" stop-opacity="0.34" />
+      <stop offset="1" stop-color="#b97863" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#coffeeBackground)" />
+  <rect width="1200" height="630" fill="url(#warmGlow)" />
+  <circle cx="86" cy="86" r="210" fill="#d8cbba" opacity="0.055" />
+  <circle cx="1110" cy="570" r="260" fill="#7d8064" opacity="0.09" />
+
+  <rect
+    x="86"
+    y="94"
+    width="1028"
+    height="442"
+    rx="54"
+    fill="#f4efe6"
+    fill-opacity="0.065"
+    stroke="#d8cbba"
+    stroke-opacity="0.34"
+    stroke-width="2"
+  />
+
+  <circle cx="326" cy="315" r="132" fill="#302925" stroke="#d8cbba" stroke-opacity="0.58" stroke-width="3" />
+  <text
+    x="326"
+    y="382"
+    text-anchor="middle"
+    fill="#f4efe6"
+    font-family="Segoe Script, Brush Script MT, cursive"
+    font-size="174"
+    font-style="italic"
+  >F</text>
+
+  <text
+    x="522"
+    y="218"
+    fill="#d8cbba"
+    font-family="Georgia, Times New Roman, serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="5"
+  >MENTORIA PROFISSIONAL • 1:1</text>
+  <text
+    x="516"
+    y="337"
+    fill="#f4efe6"
+    font-family="Segoe Script, Brush Script MT, cursive"
+    font-size="96"
+    font-style="italic"
+  >Fran</text>
+  <line x1="516" y1="371" x2="1002" y2="371" stroke="#b97863" stroke-opacity="0.82" stroke-width="3" />
+  <text
+    x="522"
+    y="430"
+    fill="#f4efe6"
+    font-family="Georgia, Times New Roman, serif"
+    font-size="43"
+    font-weight="600"
+  >Mentoria de Carreira</text>
+  <text
+    x="522"
+    y="478"
+    fill="#d8cbba"
+    font-family="Georgia, Times New Roman, serif"
+    font-size="24"
+    letter-spacing="1.5"
+  >Estratégia • clareza • direção</text>
+</svg>

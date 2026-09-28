@@ -80,7 +80,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "Mentoria da Fran" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Mentoria da Fran" },
+      { property: "og:url", content: "https://mentoriadafran.netlify.app/" },
+      {
+        property: "og:image",
+        content: "https://mentoriadafran.netlify.app/og-image.png",
+      },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "Mentoria da Fran — Mentoria de Carreira",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: "https://mentoriadafran.netlify.app/og-image.png",
+      },
+      {
+        name: "twitter:image:alt",
+        content: "Mentoria da Fran — Mentoria de Carreira",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
