@@ -4,9 +4,9 @@ import { useEffect, useState, type ReactNode } from "react";
 
 const NAV = [
   { to: "/mentoria", label: "Mentoria", search: {} },
-  { to: "/planos", label: "Planos", search: {} },
+  { to: "/planos", label: "Planos e Valores", search: {} },
   { to: "/faq", label: "FAQ", search: {} },
-  { to: "/contato", label: "Contato", search: { assunto: undefined } },
+  { to: "/contato", label: "Contato", search: {} },
 ] as const;
 
 const LEGAL_NAV = [

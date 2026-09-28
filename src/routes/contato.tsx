@@ -29,6 +29,21 @@ const INTERESTS = [
 
 const AVAILABLE_DAYS = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira"] as const;
 const AVAILABLE_TIMES = ["19h", "20h", "21h"] as const;
+const MENTORSHIP_PLANS = [
+  {
+    name: "Sessão avulsa",
+    description: "Para uma necessidade pontual.",
+  },
+  {
+    name: "Acompanhamento mensal",
+    description: "Para evoluir com constância.",
+  },
+  {
+    name: "Programa trimestral",
+    description: "Para avançar com estratégia e continuidade.",
+  },
+] as const;
+type MentorshipPlanName = (typeof MENTORSHIP_PLANS)[number]["name"];
 
 const MESSAGE_MARKER = {
   availableDays: "📅",
@@ -40,6 +55,7 @@ const MESSAGE_MARKER = {
   interest: "🎯",
   linkedin: "🔗",
   name: "👤",
+  plan: "📋",
   profession: "💼",
 } as const;
 
@@ -63,9 +79,18 @@ const absenceOptionClassName =
   "mt-2 inline-flex cursor-pointer items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground";
 
 export const Route = createFileRoute("/contato")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    assunto: search["assunto"] === "mentoria" ? ("mentoria" as const) : undefined,
-  }),
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { assunto?: "mentoria"; plano?: MentorshipPlanName } => {
+    const requestedPlan = search["plano"];
+    const plan = MENTORSHIP_PLANS.find(({ name }) => name === requestedPlan)?.name;
+    const validatedSearch: { assunto?: "mentoria"; plano?: MentorshipPlanName } = {};
+
+    if (search["assunto"] === "mentoria") validatedSearch.assunto = "mentoria";
+    if (plan) validatedSearch.plano = plan;
+
+    return validatedSearch;
+  },
   head: () => ({
     meta: [
       { title: TITLE },
@@ -90,9 +115,13 @@ function whatsappUrl(message: string) {
 }
 
 function ContatoPage() {
-  const { assunto } = Route.useSearch();
+  const { assunto, plano } = Route.useSearch();
 
-  return assunto === "mentoria" ? <MentorshipContactPage /> : <GeneralContactPage />;
+  return assunto === "mentoria" ? (
+    <MentorshipContactPage initialPlan={plano} />
+  ) : (
+    <GeneralContactPage />
+  );
 }
 
 function GeneralContactPage() {
@@ -203,7 +232,11 @@ function GeneralContactPage() {
   );
 }
 
-function MentorshipContactPage() {
+function MentorshipContactPage({
+  initialPlan,
+}: {
+  initialPlan?: MentorshipPlanName | undefined;
+}) {
   const [noProfession, setNoProfession] = useState(false);
   const [noLinkedin, setNoLinkedin] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -254,6 +287,7 @@ function MentorshipContactPage() {
     const interests = data.getAll("interests").map(String);
     const availableDays = data.getAll("availableDays").map(String);
     const availableTimes = data.getAll("availableTimes").map(String);
+    const selectedPlan = String(data.get("mentorshipPlan") ?? "").trim();
     const acceptedTerms = data.get("legalAcceptance") === "on";
 
     if (!name || !email || (!noProfession && !profession) || (!noLinkedin && !linkedin)) {
@@ -269,6 +303,11 @@ function MentorshipContactPage() {
 
     if (availableDays.length === 0 || availableTimes.length === 0) {
       showRequiredWarning("Selecione pelo menos um dia e um horário disponível.");
+      return;
+    }
+
+    if (!selectedPlan) {
+      showRequiredWarning("Selecione o plano de maior interesse antes de continuar.");
       return;
     }
 
@@ -288,6 +327,7 @@ function MentorshipContactPage() {
       `${MESSAGE_MARKER.linkedin} *LinkedIn*\n${noLinkedin ? "Não possuo" : linkedin}`,
       `${MESSAGE_MARKER.interest} *Principais interesses*\n${interests.map((interest) => `${INTEREST_EMOJI[interest as (typeof INTERESTS)[number]]} ${interest}`).join("\n")}`,
       `*Disponibilidade*\n${MESSAGE_MARKER.availableDays} Dias: ${availableDays.join(", ")}\n${MESSAGE_MARKER.availableTimes} Horários: ${availableTimes.join(", ")}`,
+      `${MESSAGE_MARKER.plan} *Plano de interesse*\n${selectedPlan}`,
       `${MESSAGE_MARKER.goal} *O que desejo alcançar com a mentoria*\n${goal || "Não informado"}`,
       `Fico no aguardo para combinarmos os próximos passos. ${MESSAGE_MARKER.farewell}`,
     ].join("\n\n");
@@ -460,6 +500,42 @@ function MentorshipContactPage() {
                 </div>
               </fieldset>
             </div>
+
+            <fieldset aria-required="true">
+              <legend className="text-sm font-medium text-foreground">
+                Plano de maior interesse <span className="text-primary">*</span>
+              </legend>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Escolha o formato que mais combina com o seu momento. Você também pode consultar os{" "}
+                <Link
+                  to="/planos"
+                  className="font-semibold text-primary underline decoration-primary/35 underline-offset-4 hover:text-foreground"
+                >
+                  planos e valores
+                </Link>
+                .
+              </p>
+              <div className="mt-3 grid gap-3 md:grid-cols-3">
+                {MENTORSHIP_PLANS.map((plan) => (
+                  <label key={plan.name} className={`${optionClassName} items-start`}>
+                    <input
+                      type="radio"
+                      name="mentorshipPlan"
+                      value={plan.name}
+                      required
+                      defaultChecked={initialPlan === plan.name}
+                      className="mt-1 size-4 shrink-0 accent-primary"
+                    />
+                    <span>
+                      <span className="block font-semibold text-foreground">{plan.name}</span>
+                      <span className="mt-1 block leading-relaxed text-muted-foreground">
+                        {plan.description}
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
 
             <div className="space-y-2">
               <Label htmlFor="goal">

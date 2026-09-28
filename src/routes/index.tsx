@@ -103,17 +103,17 @@ function Index() {
               currículo, LinkedIn, entrevistas e posicionamento no mercado com uma mentoria prática,
               individual e focada em evolução real.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 grid w-full max-w-md grid-cols-1 gap-3 sm:grid-cols-2">
               <Link
                 to="/contato"
                 search={{ assunto: "mentoria" }}
-                className="primary-button rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5"
+                className="primary-button inline-flex min-h-12 w-full items-center justify-center rounded-xl px-6 py-3 text-center text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5"
               >
                 Quero fazer mentoria
               </Link>
               <Link
                 to="/mentoria"
-                className="secondary-button rounded-xl px-6 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5"
+                className="secondary-button inline-flex min-h-12 w-full items-center justify-center rounded-xl px-6 py-3 text-center text-sm font-semibold transition-all hover:-translate-y-0.5"
               >
                 Conhecer como funciona
               </Link>
@@ -290,6 +290,42 @@ function Index() {
               <p className="reading-copy mt-2 text-muted-foreground text-pretty">{a.text}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* PLANS PREVIEW */}
+      <section className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
+        <div className="surface rounded-[1.75rem] px-7 py-9 sm:px-9 md:px-12 md:py-11">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
+              <span className="eyebrow text-support">Planos e valores</span>
+              <h2 className="mt-4 max-w-[28ch] font-display text-2xl font-semibold tracking-tight text-balance md:text-3xl">
+                Um formato de acompanhamento para cada momento da sua carreira.
+              </h2>
+              <p className="reading-copy mt-3 max-w-[58ch] text-muted-foreground">
+                Você pode começar com uma sessão pontual ou escolher um acompanhamento mensal ou
+                trimestral para construir seus próximos passos com mais continuidade.
+              </p>
+            </div>
+            <Link
+              to="/planos"
+              className="primary-button inline-flex min-h-12 w-full items-center justify-center rounded-xl px-6 py-3 text-center text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
+            >
+              Conhecer planos e valores
+            </Link>
+          </div>
+          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+            {[
+              ["Sessão avulsa", "Para uma necessidade pontual."],
+              ["Acompanhamento mensal", "Para evoluir com constância."],
+              ["Programa trimestral", "Para avançar com continuidade."],
+            ].map(([name, description]) => (
+              <div key={name} className="glass-card rounded-2xl px-5 py-4">
+                <h3 className="font-display text-lg font-semibold text-heading">{name}</h3>
+                <p className="mt-1 text-base leading-relaxed text-muted-foreground">{description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

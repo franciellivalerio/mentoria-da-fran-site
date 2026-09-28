@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro, SiteLayout } from "@/components/site/SiteLayout";
 
-const TITLE = "Planos — Mentoria da Fran";
+const TITLE = "Planos e Valores — Mentoria da Fran";
 const DESC =
   "Formatos de mentoria de carreira para uma necessidade pontual ou um acompanhamento contínuo.";
 
@@ -17,19 +17,22 @@ export const Route = createFileRoute("/planos")({
   component: PlanosPage,
 });
 
-const PLANS: {
+type Plan = {
   name: string;
   tagline: string;
   price: string;
   period: string;
-  features: string[];
+  features: readonly string[];
   highlighted?: boolean;
-}[] = [
+};
+
+const PLANS = [
   {
     name: "Sessão avulsa",
     tagline: "Para uma necessidade pontual.",
     price: "R$ 69,90",
     period: "por sessão",
+    highlighted: false,
     features: [
       "1 sessão de 30 a 60 min",
       "Diagnóstico do momento profissional",
@@ -57,6 +60,7 @@ const PLANS: {
     tagline: "Para evoluir com estratégia e continuidade.",
     price: "R$ 690,90",
     period: "programa completo",
+    highlighted: false,
     features: [
       "3 meses de acompanhamento",
       "Sessões semanais",
@@ -67,13 +71,13 @@ const PLANS: {
       "Acompanhamento de processos seletivos",
     ],
   },
-];
+] as const satisfies readonly Plan[];
 
 function PlanosPage() {
   return (
     <SiteLayout>
       <PageIntro
-        eyebrow="Planos"
+        eyebrow="Planos e Valores"
         title="Formatos pensados para diferentes momentos de carreira."
         description="Escolha uma sessão pontual ou um acompanhamento contínuo para avançar com clareza, estratégia e apoio próximo."
       />
@@ -112,7 +116,7 @@ function PlanosPage() {
               </ul>
               <Link
                 to="/contato"
-                search={{ assunto: "mentoria" }}
+                search={{ assunto: "mentoria", plano: p.name }}
                 className={
                   p.highlighted
                     ? "primary-button mt-8 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
