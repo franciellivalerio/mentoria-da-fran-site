@@ -84,7 +84,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:url", content: "https://mentoriadafran.netlify.app/" },
       {
         property: "og:image",
-        content: "https://mentoriadafran.netlify.app/og-image.png",
+        content: "https://mentoriadafran.netlify.app/og-image.png?v=2",
+      },
+      {
+        property: "og:image:secure_url",
+        content: "https://mentoriadafran.netlify.app/og-image.png?v=2",
       },
       { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "1200" },
@@ -96,7 +100,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:image",
-        content: "https://mentoriadafran.netlify.app/og-image.png",
+        content: "https://mentoriadafran.netlify.app/og-image.png?v=2",
+      },
+      {
+        name: "twitter:image:src",
+        content: "https://mentoriadafran.netlify.app/og-image.png?v=2",
       },
       {
         name: "twitter:image:alt",
