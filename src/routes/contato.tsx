@@ -122,10 +122,11 @@ function GeneralContactPage() {
 
     const subject = encodeURIComponent(`Contato pelo site — ${name}`);
     const body = encodeURIComponent(`Olá, Fran!\n\nMeu nome é ${name}.\n\n${message}`);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}&su=${subject}&body=${body}`;
 
     setFormError(null);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    toast.success("Aplicativo de e-mail aberto com a sua mensagem pronta.");
+    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    toast.success("Gmail aberto com a sua mensagem pronta.");
   }
 
   return (
@@ -133,7 +134,7 @@ function GeneralContactPage() {
       <PageIntro
         eyebrow="Contato"
         title="Como posso ajudar?"
-        description="Envie sua mensagem para dúvidas, parcerias, convites ou outros assuntos. Ao continuar, abriremos seu aplicativo de e-mail para você revisar e enviar."
+        description="Envie sua mensagem para dúvidas, parcerias, convites ou outros assuntos. Ao continuar, abriremos o Gmail para você revisar e enviar."
       />
 
       <section className="mx-auto max-w-3xl px-4 py-8 pb-20 sm:px-6">
@@ -188,7 +189,7 @@ function GeneralContactPage() {
                 className="primary-button inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 sm:w-auto"
               >
                 <Mail className="size-4" />
-                Continuar por e-mail
+                Continuar pelo Gmail
               </button>
               <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
                 A mensagem será preparada para {CONTACT_EMAIL}. Nenhuma informação é armazenada pelo
