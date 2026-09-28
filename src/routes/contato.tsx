@@ -192,8 +192,8 @@ function GeneralContactPage() {
                 Continuar pelo Gmail
               </button>
               <p className="max-w-sm text-xs leading-relaxed text-muted-foreground sm:text-right">
-                A mensagem será preparada para {CONTACT_EMAIL}. Nenhuma informação é armazenada pelo
-                site.
+                Nenhuma informação deste formulário é armazenada pelo site. Você poderá revisar a
+                mensagem antes de enviar.
               </p>
             </div>
           </form>
