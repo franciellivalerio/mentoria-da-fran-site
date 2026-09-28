@@ -4,6 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "MonteCarlo";
+  src: url("/fonts/MonteCarlo-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 /*
  * Design system — "Earth Editorial Glass"
  * All brand colors and their semantic roles live here. Components consume

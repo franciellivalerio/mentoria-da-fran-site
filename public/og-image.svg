@@ -35,9 +35,8 @@
     y="382"
     text-anchor="middle"
     fill="#f4efe6"
-    font-family="Segoe Script, Brush Script MT, cursive"
+    font-family="MonteCarlo"
     font-size="174"
-    font-style="italic"
   >F</text>
 
   <text
@@ -53,9 +52,8 @@
     x="516"
     y="337"
     fill="#f4efe6"
-    font-family="Segoe Script, Brush Script MT, cursive"
+    font-family="MonteCarlo"
     font-size="96"
-    font-style="italic"
   >Fran</text>
   <line x1="516" y1="371" x2="1002" y2="371" stroke="#b97863" stroke-opacity="0.82" stroke-width="3" />
   <text
