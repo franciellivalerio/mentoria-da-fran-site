@@ -88,8 +88,8 @@ function Index() {
     <SiteLayout>
       {/* HERO */}
       <section className="hero-glow mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 md:pb-20 md:pt-16">
-        <div className="relative grid items-center gap-10 min-[740px]:grid-cols-12 lg:gap-14">
-          <div className="min-[740px]:col-span-7 min-[1100px]:col-span-5">
+        <div className="relative grid gap-10 lg:gap-12">
+          <div className="max-w-4xl">
             <span className="eyebrow inline-flex items-center gap-2 rounded-lg bg-card/60 px-3 py-1.5 font-medium text-primary ring-1 ring-border backdrop-blur-md">
               Mentoria de carreira • 1:1
             </span>
@@ -117,7 +117,7 @@ function Index() {
               </Link>
             </div>
           </div>
-          <div className="min-[740px]:col-span-5 min-[1100px]:col-span-7">
+          <div>
             <TransformationMapVisual />
           </div>
         </div>
