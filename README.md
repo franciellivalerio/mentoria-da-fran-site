@@ -4,26 +4,25 @@ Site institucional da Mentoria da Fran, separado do sistema privado de gestão d
 mentorados. Este projeto contém apenas conteúdo público e não se conecta ao banco
 de dados do painel administrativo.
 
+## Documentação do projeto
+
+Comece por [`docs/PROJECT_CONTEXT.md`](docs/PROJECT_CONTEXT.md). Arquitetura,
+regras de negócio, integrações, persistência, funcionalidades, roadmap e histórico
+estão documentados na pasta [`docs`](docs).
+
 ## Desenvolvimento local
 
 Requer [Bun](https://bun.sh/).
 
 ```powershell
 bun install
-Copy-Item .env.example .env
 bun run dev
 ```
 
-No `.env`, configure `VITE_WHATSAPP_NUMBER` com código do país, DDD e número,
-usando somente dígitos. Exemplo fictício:
-
-```env
-VITE_WHATSAPP_NUMBER=5511999999999
-```
-
-Esse número será incluído no link público do WhatsApp; portanto, não é um
-segredo. Nunca adicione chaves do Supabase, dados de mentorados ou credenciais a
-este repositório.
+O estado atual não exige variáveis de ambiente. Os destinos públicos de Gmail e
+WhatsApp estão definidos em `src/routes/contato.tsx`. Nunca adicione chaves do
+Supabase, dados de mentorados ou credenciais a este repositório. Valores `VITE_*`
+seriam públicos no bundle do navegador e não podem conter segredos.
 
 ## Verificação
 
@@ -32,3 +31,6 @@ bun run lint
 bun run typecheck
 bun run build
 ```
+
+Consulte `AGENTS.md` para as regras de manutenção e atualização obrigatória da
+documentação.
