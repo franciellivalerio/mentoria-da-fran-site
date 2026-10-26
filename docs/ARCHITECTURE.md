@@ -36,7 +36,8 @@ Visitante
 
 ```text
 public/
-  favicon.ico                 favicon
+  favicon.svg|ico             favicon de marca e fallback
+  apple-touch-icon.png        ícone para atalhos em dispositivos Apple
   fonts/MonteCarlo-Regular.ttf fonte local da assinatura
   og-image.png|svg            card social
   robots.txt                  regras para crawlers
@@ -123,7 +124,8 @@ A navegação sticky evita `backdrop-filter` por decisão explícita: o comentá
 - cada rota declara título, description e Open Graph básicos;
 - o root declara imagem social global 1200×630, metadados X/Twitter e URL pública;
 - `public/robots.txt` permite Googlebot, Bingbot, Twitterbot, Facebook crawler e demais agentes;
-- a imagem social usa o arquivo local MonteCarlo para coincidir com a assinatura da marca.
+- a imagem social e o favicon usam a MonteCarlo para coincidir com a assinatura da marca;
+- o favicon SVG é a opção principal, com fallback ICO e ícone Apple; URLs versionadas renovam o cache dos navegadores.
 
 ## Verificação disponível
 

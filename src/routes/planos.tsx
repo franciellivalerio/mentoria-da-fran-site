@@ -29,15 +29,15 @@ type Plan = {
 const PLANS = [
   {
     name: "Sessão avulsa",
-    tagline: "Para uma necessidade pontual.",
-    price: "R$ 69,90",
+    tagline: "Para começar com clareza e conhecer a mentoria.",
+    price: "R$ 99,90",
     period: "por sessão",
     highlighted: false,
     features: [
-      "1 sessão de 30 a 60 min",
+      "1 sessão de 30 min",
       "Diagnóstico do momento profissional",
-      "Tema definido pelo mentorado",
-      "Resumo com próximos passos",
+      "1 análise de LinkedIn ou currículo",
+      "Orientações básicas para o momento profissional",
     ],
   },
   {

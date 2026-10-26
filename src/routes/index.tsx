@@ -316,7 +316,7 @@ function Index() {
           </div>
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
             {[
-              ["Sessão avulsa", "Para uma necessidade pontual."],
+              ["Sessão avulsa", "Para começar com clareza e conhecer a mentoria."],
               ["Acompanhamento mensal", "Para evoluir com constância."],
               ["Programa trimestral", "Para avançar com continuidade."],
             ].map(([name, description]) => (

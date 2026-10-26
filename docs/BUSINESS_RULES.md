@@ -17,12 +17,12 @@ Fontes: `src/routes/mentoria.tsx`, `src/routes/faq.tsx` e seções 8 e 9 de `src
 
 Fonte de verdade técnica: `PLANS` em `src/routes/planos.tsx`.
 
-### Sessão avulsa — R$ 69,90 por sessão
+### Sessão avulsa — R$ 99,90 por sessão
 
-- 1 sessão de 30 a 60 minutos;
+- 1 sessão de 30 minutos;
 - diagnóstico do momento profissional;
-- tema definido pelo mentorado;
-- resumo com próximos passos.
+- 1 análise de LinkedIn ou currículo;
+- orientações básicas para o momento profissional.
 
 ### Acompanhamento mensal — R$ 249,90 por mês
 

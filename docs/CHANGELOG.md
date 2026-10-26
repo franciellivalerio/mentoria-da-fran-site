@@ -2,6 +2,14 @@
 
 Este histórico usa apenas datas e commits disponíveis no Git. Não há tags ou versões semânticas; por isso as mudanças são agrupadas por data, sem números de versão inventados.
 
+## 26 de outubro de 2026 — identidade da aba do navegador
+
+- substituição do favicon padrão do template pelo monograma “F” da Mentoria da Fran;
+- inclusão de favicon SVG, fallback ICO, ícone para atalhos Apple e versionamento das URLs para renovação de cache.
+- atualização do valor da sessão avulsa de R$ 69,90 para R$ 99,90.
+- atualização do escopo da sessão avulsa para 30 minutos, diagnóstico, uma análise de LinkedIn ou currículo e orientações básicas.
+- reposicionamento da sessão avulsa como porta de entrada para conhecer a mentoria e incentivar a continuidade do acompanhamento.
+
 ## 2 de outubro de 2026 — documentação estrutural
 
 - criação da documentação permanente em `docs`;

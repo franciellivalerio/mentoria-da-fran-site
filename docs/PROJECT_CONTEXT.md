@@ -1,6 +1,6 @@
 # Contexto do projeto
 
-> Revisão do estado atual: 2 de outubro de 2026.
+> Revisão do estado atual: 26 de outubro de 2026.
 
 ## Fonte de verdade
 

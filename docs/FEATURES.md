@@ -98,7 +98,7 @@ Fonte: `src/styles.css`, `src/routes/__root.tsx` e componentes de UI.
 - Open Graph;
 - X/Twitter large image card;
 - imagem social de marca;
-- favicon;
+- favicon próprio da Mentoria da Fran em SVG, ICO e formato para atalhos Apple;
 - robots.txt permissivo para crawlers principais.
 
 Fontes: `src/routes/__root.tsx`, metadados das rotas e `public`.
